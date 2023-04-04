@@ -15,7 +15,7 @@ And Users are : Admin, Shaon, Muhaimen, Sourav
 | name              |   | name                |    | name           |    | name          |
 | points            |   | start_date          |    | description    |    +---------------+
 | duration          |   | end_date            |    | deleted_at     |
-| assigned_members  |   | task_status_id (FK)  |    +----------------+
+| assigned_members  |   | task_status_id (FK) |    +----------------+
 | deleted_at        |   | description         |
 +-------------------+   | project_id (FK)     |
                         | deleted_at          |

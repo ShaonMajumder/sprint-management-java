@@ -16,7 +16,7 @@ CREATE TABLE sprints (
   name VARCHAR(255) NOT NULL,
   start_date DATE,
   end_date DATE,
-  task_status_id INT,
+  task_status_id JSON,
   description VARCHAR(1000),
   project_id INT,
   deleted_at TIMESTAMP NULL DEFAULT NULL
