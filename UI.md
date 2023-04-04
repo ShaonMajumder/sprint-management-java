@@ -124,7 +124,7 @@ ID | Name | Sprint Points | Duration | Members | Actions( **Buttons**[Edit -> Re
 
 ## Window 9
 
-**Label** [Sprint List]
+**Label** [Sprint List | | Make the font size big]
 
 **Label** [ Sprint Name: ] --- Input Text []
 **Label** [ Start date: ] --- Calendar []
@@ -157,6 +157,7 @@ Button [ Return To Home ]
 
 Task Table
 ID | Name | Sprint Points | Duration | Members | Action [Remove Task]
+Button [ Return To Home ]
 
 ## Window 12
 
@@ -164,3 +165,4 @@ ID | Name | Sprint Points | Duration | Members | Action [Remove Task]
 
 Task Table
 ID | Name | Sprint Points | Duration | Members(Not Updatable) | Change Task Status(Select Options[]) | Shift to Sprint(Select Options[])
+Button [ Return To Home ]
