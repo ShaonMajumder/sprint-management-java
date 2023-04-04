@@ -77,7 +77,8 @@ INSERT INTO permissions (name, description) VALUES
 ('Copy Task ID', 'Permission to copy the task ID'),
 ('Sprint Create', 'Permission to create a new sprint'),
 ('Sprint Delete', 'Permission to delete a sprint'),
-('Sprint Update', 'Permission to update an existing sprint');
+('Sprint Update', 'Permission to update an existing sprint'),
+('Sprint Shift', 'Permission to shift tasks between sprints');
 
 
 
