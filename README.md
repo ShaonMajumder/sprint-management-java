@@ -21,13 +21,13 @@ And Users are : Admin, Shaon, Muhaimen, Sourav
                         | deleted_at          |
                         +---------------------+
 
-+-------------------+   +-----------------+   +------------+
-| users             |   | roles           |   | permissions|
-+-------------------+   +-----------------+   +------------+
-| id (PK)           |   | id (PK)         |   | id         |
-| username          |   | name            |   | name       |
-| password          |   | description     |   | description|
-| email             |   +-----------------+   +------------+
++-------------------+   +-----------------+   +-------------+
+| users             |   | roles           |   | permissions |
++-------------------+   +-----------------+   +-------------+
+| id (PK)           |   | id (PK)         |   | id          |
+| username          |   | name            |   | name        |
+| password          |   | description     |   | description |
+| email             |   +-----------------+   +-------------+
 | first_name        |
 | last_name         |
 +-------------------+
