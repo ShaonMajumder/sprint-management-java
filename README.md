@@ -1,5 +1,10 @@
 # Sprint Management
 
+## User Instructions
+
+default password : 12345678 for all users
+And Users are : Admin, Shaon, Muhaimen, Sourav
+
 ## Table Design
 
 <pre>
