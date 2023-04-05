@@ -61,7 +61,7 @@ CREATE TABLE user_has_role (
   role_id INT NOT NULL
 );
 
-CREATE TABLE role_has_permission (
+CREATE TABLE role_has_permissions (
   id INT PRIMARY KEY AUTO_INCREMENT,
   role_id INT NOT NULL,
   permission_id INT NOT NULL
@@ -99,8 +99,6 @@ INSERT INTO permissions (name, description) VALUES
 ('Sprint Delete', 'Permission to delete a sprint'),
 ('Sprint Update', 'Permission to update an existing sprint'),
 ('Sprint Shift', 'Permission to shift tasks between sprints');
-
-
 
 INSERT INTO roles (name, description) VALUES
 ('CTO', 'Responsible for technology strategy and innovation.'),

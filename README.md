@@ -8,29 +8,40 @@ And Users are : Admin, Shaon, Muhaimen, Sourav
 ## Table Design
 
 <pre>
-+-------------------+   +---------------------+    +----------------+    +---------------+
-| tasks             |   | sprints             |    | projects       |    | task_statuses |
-+-------------------+   +---------------------+    +----------------+    +---------------+
-| id (PK)           |   | id (PK)             |    | id (PK)        |    | id            |
-| name              |   | name                |    | name           |    | name          |
-| points            |   | start_date          |    | description    |    +---------------+
-| duration          |   | end_date            |    | deleted_at     |
-| assigned_members  |   | task_status_id (FK) |    +----------------+
-| deleted_at        |   | description         |
-+-------------------+   | project_id (FK)     |
-                        | deleted_at          |
-                        +---------------------+
++------------------------+  +--------------------------+  +--------------------------+
+|          tasks         |  |         sprints          |  |        projects          |
++------------------------+  +--------------------------+  +--------------------------+
+| id          INT        |  | id           INT         |  | id          INT          |
+| name       VARCHAR(255)|  | name         VARCHAR(255)|  | name        VARCHAR(255) |
+| points      INT        |  | start_date   DATE        |  | description VARCHAR(1000)|
+| duration    DOUBLE     |  | end_date     DATE        |  | deleted_at  TIMESTAMP    |
+| assigned_members JSON  |  | task_status_id   JSON    |  +--------------------------+
+| deleted_at  TIMESTAMP  |  | description VARCHAR(1000)| 
++------------------------+  | project_id  INT          |
+                            | deleted_at  TIMESTAMP    |
+                            +--------------------------+
 
-+-------------------+   +-----------------+   +-------------+
-| users             |   | roles           |   | permissions |
-+-------------------+   +-----------------+   +-------------+
-| id (PK)           |   | id (PK)         |   | id          |
-| username          |   | name            |   | name        |
-| password          |   | description     |   | description |
-| email             |   +-----------------+   +-------------+
-| first_name        |
-| last_name         |
-+-------------------+
++------------------------+  +------------------------+  +--------------------------+
+|     task_statuses      |  |          users         |  |          roles           |
++------------------------+  +------------------------+  +--------------------------+
+| id         INT         |  | id         INT         |  | id          INT          |
+| name       VARCHAR(255)|  | username   VARCHAR(255)|  | name        VARCHAR(255) |
++------------------------+  | password   VARCHAR(255)|  | description VARCHAR(1000)|
+                            | email      VARCHAR(255)|  +--------------------------+
+                            | first_name VARCHAR(255)|   
+                            | last_name  VARCHAR(255)|  
+                            +------------------------+   
+                                                        
+
++------------------------+  +------------------------+  +------------------------+
+|  user_has_role         |  |  role_has_permissions  |  |   sprint_has_tasks     |
++------------------------+  +------------------------+  +------------------------+
+| id          INT        |  | id            INT      |  | id          INT        |
+| user_id     INT        |  | role_id       INT      |  | sprint_id  INT         |
+| role_id     INT        |  | permission_id INT      |  | task_id    INT         |
++------------------------+  +------------------------+  | project_id INT         |
+                                                        | deleted_at TIMESTAMP   |
+                                                        +------------------------+
 </pre>
 
 ## UI Design
