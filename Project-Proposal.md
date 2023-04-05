@@ -3,7 +3,7 @@
 ## Introduction :
 We propose to develop a sprint management tool to help teams organize and track our sprints more effectively. The proposed sprint management system will provide a centralized location to manage and track project progress, create and manage sprints, and assign tasks to team members.
 
-# Objectives :
+## Objectives :
 The objectives of the sprint management system are as follows:
 
 - Provide a centralized location for project management
@@ -13,7 +13,7 @@ The objectives of the sprint management system are as follows:
 - Monitor team member workload and capacity
 - Provide project analytics and reporting
 
-# Scope :
+## Scope :
 The scope of the sprint management system will include the following features:
 
 - User login
@@ -23,7 +23,7 @@ The scope of the sprint management system will include the following features:
 - Team member workload monitoring
 - Analytics and reporting
 
-# Methodology:
+## Methodology:
 We will use an Agile methodology to develop the sprint management system. We will work in sprints, with each sprint lasting two weeks. We will hold daily stand-up meetings to discuss progress and address any issues or roadblocks. We will use a combination of Scrum and Kanban methodologies to manage our tasks and workflow.
 
 ## Features
@@ -42,7 +42,7 @@ The sprint management tool will be developed using the following technologies:
 - Front-end: Java UI Frames
 - Back-end: Java and Mysql
 
-# Deliverables:
+## Deliverables:
 The deliverables for this project will include:
 
 - A fully functional sprint management system
@@ -50,7 +50,7 @@ The deliverables for this project will include:
 - Technical documentation
 - Training for users
 
-## Project Timeline:
+## Project Timeline: Edit
 The project will be completed in two sprint, each lasting two weeks. The timeline for each sprint is as follows:
 
 ### Sprint 1 (Weeks 1-4)
