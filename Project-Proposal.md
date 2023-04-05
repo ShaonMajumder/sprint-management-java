@@ -63,8 +63,9 @@ The project will be completed in two sprint, each lasting two weeks. The timelin
 
 ### Sprint 1 (Weeks 1-2)
 Planning and design phase (1 week)
-- Scrum Meeting
+- Writing & Submitting Project Proposal
 - Requirement Analysis
+- Scrum Meeting
 - System Design
 - Database Design
 - WireFrame Mockups
