@@ -209,7 +209,7 @@ Task Table
 ID | Name | Sprint Points | Duration | Members(Not Updatable) | Change Task Status(Select Options[]) | Shift to Sprint(Select Options[])
 Button [ Return To Home ]
 
-## Window Drawing
+## Mock Wireframes - Project Windows
 
 <pre>
 Window 0 :
