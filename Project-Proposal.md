@@ -62,7 +62,7 @@ The deliverables for this project will include:
 The project will be completed in two sprint, each lasting two weeks. The timeline for each sprint is as follows:
 
 ### Sprint 1 (Weeks 1-2)
-Planning and design phase (2 weeks)
+Planning and design phase (1 week)
 - Scrum Meeting
 - Requirement Analysis
 - System Design
@@ -72,6 +72,7 @@ Planning and design phase (2 weeks)
 - Design Meeting
 - Sprint Review Meeting
 
+Database Phase (1 week)
 - Developing the UI
 - Developing the Database schema
 - Establishing the DBMS Connectivity with backend
