@@ -58,7 +58,7 @@ The deliverables for this project will include:
 - Technical documentation
 - Training for users
 
-## Project Timeline: Edit
+## Project Timeline:
 The project will be completed in two sprint, each lasting two weeks. The timeline for each sprint is as follows:
 
 ### Sprint 1 (Weeks 1-2)
