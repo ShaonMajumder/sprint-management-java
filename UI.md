@@ -244,9 +244,9 @@ Window 5:
 |                                                        |
 |  Task Name:                      |___________|         |
 |                                                        |
-|  Sprint Points:                  [     ▼   ]           |
+|  Sprint Points:                  [       |▼]           |
 |                                                        |
-|  Duration:                       [____]    [     ▼   ] |
+|  Duration:                       |____|    [       |▼] |
 |                                                        |
 |                 Assigned Members:                      |
 |  [ ✓ ] User 1   [ ✓ ] User 2                           |
@@ -312,7 +312,7 @@ Window 8:
 |  [                                    ]    |
 |  [____________________________________]    |
 |                                            |
-|  Project Name: [ Select ]v                 |
+|  Project Name: [ Select |▼]                |
 |                                            |
 |      [Submit → ]       [Return to Home → ] |
 |____________________________________________|
