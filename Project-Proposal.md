@@ -23,6 +23,9 @@ The scope of the sprint management system will include the following features:
 - Team member workload monitoring
 - Analytics and reporting
 
+# Methodology:
+We will use an Agile methodology to develop the sprint management system. We will work in sprints, with each sprint lasting two weeks. We will hold daily stand-up meetings to discuss progress and address any issues or roadblocks. We will use a combination of Scrum and Kanban methodologies to manage our tasks and workflow.
+
 ## Features
 The tool will have the following features:
 - User login
@@ -38,9 +41,6 @@ The tool will have the following features:
 The sprint management tool will be developed using the following technologies:
 - Front-end: Java UI Frames
 - Back-end: Java and Mysql
-
-# Methodology:
-We will use an Agile methodology to develop the sprint management system. We will work in sprints, with each sprint lasting two weeks. We will hold daily stand-up meetings to discuss progress and address any issues or roadblocks. We will use a combination of Scrum and Kanban methodologies to manage our tasks and workflow.
 
 # Deliverables:
 The deliverables for this project will include:
