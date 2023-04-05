@@ -283,7 +283,7 @@ Window 12:
 
         Sourav Sur
 
-## Team - Project Roles :
+## Team - Project Roles
 
 The project team will consist of the following members:
 
