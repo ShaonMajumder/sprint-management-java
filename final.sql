@@ -55,6 +55,25 @@ CREATE TABLE permissions (
   description VARCHAR(1000)
 );
 
+CREATE TABLE user_has_role (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  role_id INT NOT NULL
+);
+
+CREATE TABLE role_has_permission (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  role_id INT NOT NULL,
+  permission_id INT NOT NULL
+);
+
+CREATE TABLE sprint_has_tasks (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  sprint_id INT NOT NULL,
+  task_id INT NOT NULL,
+  project_id INT NOT NULL,
+  deleted_at TIMESTAMP NULL DEFAULT NULL
+);
 
 INSERT INTO task_statuses (id, name) VALUES
 (1, 'Open'),
