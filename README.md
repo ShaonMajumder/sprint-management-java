@@ -268,3 +268,7 @@ Window 12:
  -------------------------------------------------------------------------------------
 
 </pre>
+
+## Technologies
+- Front-end: Java UI Frames
+- Back-end: Java and Mysql
