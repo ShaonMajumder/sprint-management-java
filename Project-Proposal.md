@@ -100,9 +100,8 @@ Deployment and training phase (.5 weeks)
 ### Sprint 3 (Additonal Weeks)
 - Implement sprint reporting functionality
 
-
-Project Budget:
-The budget for this project will be $100,000. This will include the cost of development, testing, deployment, and training.
+## Project Budget:
+The estimated budget for this project will be $100,000 if we officially apoint developers or if our works has been taken into count with revenue. This will include the cost of development, testing, deployment, and training.
 
 ## Team
 
