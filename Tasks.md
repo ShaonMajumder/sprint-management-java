@@ -1,4 +1,4 @@
-5th April - Meeting, Requirement Analysis, DB Design, UI Design - 3 of us
+5th April - Meeting, Requirement Analysis, DB Design, UI Design - 3 of us (Done)
 
 6th April - Project Proposal, Making the class of table - Shaon
 
