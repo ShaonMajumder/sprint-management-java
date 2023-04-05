@@ -61,24 +61,45 @@ The deliverables for this project will include:
 ## Project Timeline: Edit
 The project will be completed in two sprint, each lasting two weeks. The timeline for each sprint is as follows:
 
-### Sprint 1 (Weeks 1-4)
+### Sprint 1 (Weeks 1-2)
+Planning and design phase (2 weeks)
+- Scrum Meeting
+- Requirement Analysis
+- System Design
+- Database Design
+- WireFrame Mockups
 - Develop user interface
+- Design Meeting
+- Sprint Review Meeting
+
+- Developing the UI
+- Developing the Database schema
+- Establishing the DBMS Connectivity with backend
+- Generating Seeder for Database
+- Database Meeting
+- Sprint Review Meeting
+
+### Sprint 2 (Weeks 3-4)
+Development phase (1 week)
+- Developing the Entity Classes
+- Developing the Flow between Frames
+- Developing the whole logic
 - Implement basic functionality for creating and managing sprints
 
-### Sprint 2 (Weeks 5-8)
-- Implement task assignment and tracking functionality
-- Integrate with project management tools
+Testing and debugging phase (.5 weeks)
+- Testing the flow
+- Debug the application
+- User Experience Meeting
 
-### Sprint 3 (Weeks 9-12)
-- Implement sprint reporting functionality
-- Test and debug the application
+Deployment and training phase (.5 weeks)
 - Deploy the application to production
+- Training the users
+- Sprint Review Meeting
+
+### Sprint 3 (Additonal Weeks)
+- Implement sprint reporting functionality
 
 
-Planning and design phase (2 weeks)
-Development phase (12 weeks)
-Testing and debugging phase (2 weeks)
-Deployment and training phase (2 weeks)
 Project Budget:
 The budget for this project will be $100,000. This will include the cost of development, testing, deployment, and training.
 
