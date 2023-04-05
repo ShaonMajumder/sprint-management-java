@@ -77,7 +77,7 @@ The budget for this project will be $100,000. This will include the cost of deve
 ## Team
 The project team will consist of the following members:
 - Project Manager : Shaon Majumder &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Team Co-ordination)
-- System Analyst : Shaon Majumder                            (System Design)
+- System Analyst : Shaon Majumder &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(System Design)
 - Database Administratior : Shaon Majumder                   (Database Design)
 - Front-end Developer :  Shaon Majumder, Turag Muhaimen      (UI Implementation)
 - Back-end Developer : Shaon Majumder, Turag Muhaimen        (AI & Logics)
