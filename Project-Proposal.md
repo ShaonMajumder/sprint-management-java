@@ -5,9 +5,9 @@
 
         Shaon Majumder (CSE202301040)
 
-        Turag Muhaimen
+        Muhaiminul Islam (CSE202301147)
 
-        Sourav Sur
+        Sourav Kumar Sur (CSE202301094)
 ## Introduction :
 We propose to develop a sprint management tool to help teams organize and track our sprints more effectively. The proposed sprint management system will provide a centralized location to manage and track project progress, create and manage sprints, and assign tasks to team members.
 
