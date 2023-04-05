@@ -1,7 +1,11 @@
-5th April - Meeting, Requirement Analysis, DB Design, UI Design - 3 of us
+4th April - Meeting, Requirement Analysis, DB Design, UI Design - 3 of us [Done]
 
-6th April - Project Proposal, Making the class of table - Shaon
+5th April - Desiging UI Mock Wireframes [Done]
 
-Making UI Java Frame - Muhaimen
+5th April - Writing & Submiting Project Proposal
+
+5th April - Making the class of table - Shaon
+
+6th April Making UI Java Frame - Muhaimen
 
 7th April - UI meeting we will disccus about the proress about UI and Class
