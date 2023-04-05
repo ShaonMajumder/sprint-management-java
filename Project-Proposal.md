@@ -81,8 +81,8 @@ The project team will consist of the following members:
 - Database Administratior : Shaon Majumder &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Database Design)
 - Front-end Developer :  Shaon Majumder, Turag Muhaimen      (UI Implementation)
 - Back-end Developer : Shaon Majumder, Turag Muhaimen        (AI & Logics)
-- UI/UX Designer :  Shaon Majumder                           (Wireframe Mocking & Drawing)
-- QA Engineer : Sourav Sur                                   (Testing User Experience)
+- UI/UX Designer :  Shaon Majumder &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Wireframe Mocking & Drawing)
+- QA Engineer : Sourav Sur &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Testing User Experience)
 - Overall Assists : Sourav Sur
 
 Conclusion:
