@@ -161,7 +161,7 @@ Task Table
 ID | Name | Sprint Points | Duration | Members(Not Updatable) | Change Task Status(Select Options[]) | Shift to Sprint(Select Options[])
 Button [ Return To Home ]
 
-### Window Drawing
+## Window Drawing
 
 <pre>
 Window 0 :
