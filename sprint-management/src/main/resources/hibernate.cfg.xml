@@ -11,15 +11,18 @@
         <property name="hibernate.connection.password">%Sh170892</property>
 
         <!-- Hibernate dialect for your database -->
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
         <!-- Show SQL queries in console -->
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.format_sql">true</property>
+<!--        <property name="hbm2ddl.auto">create</property>-->
 
         <!-- Mapping files -->
         <mapping class="coma.Project"/>
+
+
 
     </session-factory>
 </hibernate-configuration>

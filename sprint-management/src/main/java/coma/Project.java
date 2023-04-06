@@ -1,16 +1,18 @@
 package coma;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "projects")
 public class Project {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
+
+    @Column(name = "name",nullable = false)
     private String name;
 
     @Column(name = "description")
@@ -20,7 +22,9 @@ public class Project {
     private Timestamp deletedAt;
 
     // Constructors
-    public Project() {}
+    public Project() {
+
+    }
 
     public Project(String name, String description) {
         this.name = name;

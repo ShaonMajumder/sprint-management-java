@@ -8,31 +8,50 @@ import coma.Project;
 public class HibernateExample {
 
     public static void main(String[] args) {
-        SessionFactory factory = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Project.class)
-                .buildSessionFactory();
+////        SessionFactory factory = new Configuration()
+////                .configure("hibernate.cfg.xml")
+////                .addAnnotatedClass(Project.class)
+////                .buildSessionFactory();
+//
+//
+//
+//        Session session = factory.getCurrentSession();
+//        System.out.println(session);
 
 
-        Session session = factory.getCurrentSession();
-        System.out.println(session);
+
+        Configuration configuration = new Configuration();
+        configuration.configure("hibernate.cfg.xml");
+        configuration.addAnnotatedClass(Project.class);
+
+        SessionFactory sessionFactory
+                = configuration.buildSessionFactory();
+
+        Session session = sessionFactory.openSession();
+
 
         try {
             session.beginTransaction();
+            List<Project> projects = null;
 
-            List projects = session.createQuery("FROM Project").getResultList();
-//            System.out.println(projects);
+            projects = session.createQuery("FROM Project", Project.class).list();
 
-//            for (Project project : projects) {
-//                System.out.println(project);
-//            }
+            System.out.println(projects);
+
+            for (Project project : projects) {
+                System.out.println("Id: " + project.getId());
+                System.out.println("Name: " + project.getName());
+                System.out.println("Description: " + project.getDescription());
+            }
 
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             session.close();
-            factory.close();
+
+
+            sessionFactory.close();
         }
     }
 
