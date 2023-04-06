@@ -2,7 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Main {
+public class DB {
     public static void main(String[] args) {
         String jdbcUrl = "jdbc:mysql://localhost:3306/sprint_management"; // Replace "mydatabase" with your database name
         String username = "shaon"; // Replace "root" with your MySQL username

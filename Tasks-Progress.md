@@ -6,6 +6,8 @@
 
 5th April - Making the class of table - Shaon
 
+6th April - Learning Adding Jar file, Adding Maven Dependency and Troubleshoot
+
 6th April Making UI Java Frame - Muhaimen
 
 7th April - UI meeting we will disccus about the proress about UI and Class
