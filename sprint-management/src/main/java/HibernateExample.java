@@ -2,7 +2,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import coma.*;
+import coma.Project;
 
 
 public class HibernateExample {
@@ -13,13 +13,15 @@ public class HibernateExample {
                 .addAnnotatedClass(Project.class)
                 .buildSessionFactory();
 
+
         Session session = factory.getCurrentSession();
+        System.out.println(session);
 
         try {
             session.beginTransaction();
 
-            List projects = session.createQuery("from Project").getResultList();
-            System.out.println(projects);
+            List projects = session.createQuery("FROM Project").getResultList();
+//            System.out.println(projects);
 
 //            for (Project project : projects) {
 //                System.out.println(project);
