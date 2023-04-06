@@ -270,12 +270,16 @@ Window 12:
 </pre>
 
 ## Technologies
+
 - Front-end: Java UI Frames
 - Back-end: Java and Mysql
+- ORM : Hibernate
+- Build Tools : Maven
 
 ## Contributors
+
 - Supervisor : Dr. Md. Ezharul Islam
-- Team : 
+- Team :
 
         Shaon Majumder (CSE202301040)
 
