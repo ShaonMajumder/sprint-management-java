@@ -15,8 +15,8 @@
 
         <!-- Show SQL queries in console -->
         <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.format_sql">true</property>
         <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.format_sql">true</property>
 
         <!-- Mapping files -->
         <mapping class="coma.Project"/>
