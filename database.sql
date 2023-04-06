@@ -87,7 +87,7 @@ INSERT INTO task_statuses (id, name) VALUES
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `first_name`, `last_name`) VALUES
 (1, 'admin', '25d55ad283aa400af464c76d713c07ad', 'admin@admin.com', 'Primary', 'Admin'),
 (2, 'turag', '25d55ad283aa400af464c76d713c07ad', 'turag@admin.com', 'Turag', 'Muhaimen'),
-(3, 'sourav', '25d55ad283aa400af464c76d713c07ad', 'sourav@admin.com', 'Sourav', 'Sur');
+(3, 'sourav', '25d55ad283aa400af464c76d713c07ad', 'sourav@admin.com', 'Sourav', 'Sur'),
 (4, 'shaon', '25d55ad283aa400af464c76d713c07ad', 'shaon@admin.com', 'Shaon', 'Majumder');
 
 INSERT INTO permissions (name, description) VALUES 
