@@ -21,6 +21,7 @@ public class GetDataDBExample {
 
         projectSeeder.seed();
 
+
         // close session factory
         sessionFactory.close();
     }

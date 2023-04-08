@@ -21,7 +21,11 @@
 
         <!-- Mapping files -->
         <mapping class="BACKEND.Models.Project"/>
+        <mapping class="BACKEND.Models.Sprint"/>
         <mapping class="BACKEND.Models.Task"/>
+        <mapping class="BACKEND.Models.User"/>
+        <mapping class="BACKEND.Models.Role"/>
+        <mapping class="BACKEND.Models.Permission"/>
 
 
 

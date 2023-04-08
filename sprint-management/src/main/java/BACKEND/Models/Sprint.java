@@ -1,17 +1,12 @@
 package BACKEND.Models;
 
-import org.hibernate.SessionFactory;
 import jakarta.persistence.*;
-import jdk.jfr.Description;
-import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
-
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
-@Table(name = "tasks")
-public class Task {
+@Table(name = "sprints")
+public class Sprint {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +19,11 @@ public class Task {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "points")
-    private int points;
+    @Column(name = "start_date", nullable = false)
+    private Date startDate;
 
-    @Column(name = "duration")
-    private double duration;
+    @Column(name = "end_date", nullable = false)
+    private Date endDate;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Timestamp createdAt;
@@ -40,15 +35,15 @@ public class Task {
     private Timestamp deletedAt;
 
     // Constructors
-    public Task() {
+    public Sprint() {
 
     }
 
-    public Task(String name, String description, int points, double duration) {
+    public Sprint(String name, String description, Date startDate, Date endDate) {
         this.name = name;
         this.description = description;
-        this.points = points;
-        this.duration = duration;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.createdAt = new Timestamp(System.currentTimeMillis());
     }
 
@@ -77,20 +72,20 @@ public class Task {
         this.description = description;
     }
 
-    public int getPoints() {
-        return points;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setPoints(int points) {
-        this.points = points;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public double getDuration() {
-        return duration;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setDuration(double duration) {
-        this.duration = duration;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public Timestamp getCreatedAt() {
@@ -119,11 +114,12 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Tasks{" +
+        return "Sprint{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", points=" + points +
-                ", duration=" + duration +
+                ", description='" + description + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", deletedAt=" + deletedAt +
