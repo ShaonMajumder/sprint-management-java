@@ -1,12 +1,15 @@
+package UI;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class LoginWindow {
-    public static void draw(String[] args) {
+    public static void draw() {
         JFrame frame = new JFrame("Login To The System");
         frame.setSize(500, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
+        frame.setResizable(false);
 
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();

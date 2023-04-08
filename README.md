@@ -5,43 +5,83 @@
 default password : 12345678 for all users
 And Users are : Admin, Shaon, Muhaimen, Sourav
 
-## Table Design
+## Table Design Diagram
 
 <pre>
-+------------------------+  +--------------------------+  +--------------------------+
-|          tasks         |  |         sprints          |  |        projects          |
-+------------------------+  +--------------------------+  +--------------------------+
-| id          INT        |  | id           INT         |  | id          INT          |
-| name       VARCHAR(255)|  | name         VARCHAR(255)|  | name        VARCHAR(255) |
-| points      INT        |  | start_date   DATE        |  | description VARCHAR(1000)|
-| duration    DOUBLE     |  | end_date     DATE        |  | deleted_at  TIMESTAMP    |
-| assigned_members JSON  |  | task_status_id   JSON    |  +--------------------------+
-| deleted_at  TIMESTAMP  |  | description VARCHAR(1000)| 
-+------------------------+  | project_id  INT          |
-                            | deleted_at  TIMESTAMP    |
-                            +--------------------------+
++---------------------------+   +---------------------------+
+|        projects           |   |         sprints           |
++---------------------------+   +---------------------------+
+| id          INT           |   | id          INT           |
+| name        VARCHAR(255)  |   | name        VARCHAR(255)  |
+| description VARCHAR(1000) |   | start_date  DATE          |
+| created_at  TIMESTAMP     |   | end_date    DATE          |
+| updated_at  TIMESTAMP     |   | created_at  TIMESTAMP     |
+| deleted_at  TIMESTAMP NULL|   | updated_at  TIMESTAMP     |
++---------------------------+   | deleted_at  TIMESTAMP NULL|
+                                +---------------------------+
 
-+------------------------+  +------------------------+  +--------------------------+
-|     task_statuses      |  |          users         |  |          roles           |
-+------------------------+  +------------------------+  +--------------------------+
-| id         INT         |  | id         INT         |  | id          INT          |
-| name       VARCHAR(255)|  | username   VARCHAR(255)|  | name        VARCHAR(255) |
-+------------------------+  | password   VARCHAR(255)|  | description VARCHAR(1000)|
-                            | email      VARCHAR(255)|  +--------------------------+
-                            | first_name VARCHAR(255)|   
-                            | last_name  VARCHAR(255)|  
-                            +------------------------+   
-                                                        
++---------------------------+   +---------------------------+
+|          tasks            |   |        task_statuses      |
++---------------------------+   +---------------------------+
+| id          INT           |   | id          INT           |
+| name        VARCHAR(255)  |   | name        VARCHAR(255)  |
+| description VARCHAR(255)  |   | created_at  TIMESTAMP     |
+| points      INT           |   | updated_at  TIMESTAMP     |
+| duration    DOUBLE        |   | deleted_at  TIMESTAMP NULL|
+| created_at  TIMESTAMP     |   +---------------------------+
+| updated_at  TIMESTAMP     |
+| deleted_at  TIMESTAMP NULL|
++---------------------------+
 
-+------------------------+  +------------------------+  +------------------------+
-|  user_has_role         |  |  role_has_permissions  |  |   sprint_has_tasks     |
-+------------------------+  +------------------------+  +------------------------+
-| id          INT        |  | id            INT      |  | id          INT        |
-| user_id     INT        |  | role_id       INT      |  | sprint_id  INT         |
-| role_id     INT        |  | permission_id INT      |  | task_id    INT         |
-+------------------------+  +------------------------+  | project_id INT         |
-                                                        | deleted_at TIMESTAMP   |
-                                                        +------------------------+
+
++---------------------------+   +---------------------------+
+|          users            |   |          roles            |
++---------------------------+   +---------------------------+
+| id          INT           |   | id          INT           |
+| username    VARCHAR(255)  |   | name        VARCHAR(255)  |
+| password    VARCHAR(255)  |   | description VARCHAR(1000) |
+| email       VARCHAR(255)  |   | created_at  TIMESTAMP     |
+| first_name  VARCHAR(255)  |   | updated_at  TIMESTAMP     |
+| last_name   VARCHAR(255)  |   | deleted_at  TIMESTAMP NULL|
+| created_at  TIMESTAMP     |   +---------------------------+
+| updated_at  TIMESTAMP     |
+| deleted_at  TIMESTAMP NULL|
++---------------------------+
+
++---------------------------+   +---------------------------+
+|       permissions         |   |      user_has_role        |
++---------------------------+   +---------------------------+
+| id          INT           |   | id          INT           |
+| name        VARCHAR(255)  |   | user_id     INT           |
+| description VARCHAR(1000) |   | role_id     INT           |
+| created_at  TIMESTAMP     |   | created_at  TIMESTAMP     |
+| updated_at  TIMESTAMP     |   | updated_at  TIMESTAMP     |
+| deleted_at  TIMESTAMP NULL|   | deleted_at  TIMESTAMP NULL|
++---------------------------+  +---------------------------+
+
++-----------------------------+   +---------------------------+
+|  role_has_permissions       |   | project_sprint_has_tasks  |
++-----------------------------+   +---------------------------+
+| id            INT           |   | id          INT           |
+| role_id       INT           |   | project_id  INT           |
+| permission_id INT           |   | sprint_id   INT           |
+| created_at    TIMESTAMP     |   | task_id     INT           |
+| updated_at    TIMESTAMP     |   | created_at  TIMESTAMP     |
+| deleted_at    TIMESTAMP NULL|   | updated_at  TIMESTAMP     |
++-----------------------------+   | deleted_at  TIMESTAMP NULL|
+                                  +---------------------------+
+
++---------------------------+
+|     task_has_members      |
++---------------------------+
+| id          INT           |
+| user_id     INT           |
+| task_id     INT           |
+| created_at  TIMESTAMP     |
+| updated_at  TIMESTAMP     |
+| deleted_at  TIMESTAMP NULL|
++---------------------------+
+
 </pre>
 
 ## UI Design

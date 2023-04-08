@@ -20,7 +20,8 @@
 <!--        <property name="hbm2ddl.auto">create</property>-->
 
         <!-- Mapping files -->
-        <mapping class="coma.Project"/>
+        <mapping class="BACKEND.Models.Project"/>
+        <mapping class="BACKEND.Models.Task"/>
 
 
 
