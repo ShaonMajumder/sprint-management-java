@@ -1,13 +1,17 @@
 package BACKEND.Seeders;
 
 import BACKEND.Controllers.ProjectController;
+import BACKEND.Seeders.SeederInterface;
 import BACKEND.Models.Project;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectSeeder {
+public class ProjectSeeder implements SeederInterface {
 
     private final SessionFactory sessionFactory;
 
@@ -25,8 +29,6 @@ public class ProjectSeeder {
      */
     public void seed() {
         ProjectController projectController = new ProjectController(sessionFactory);
-
-        // Create sample projects
         List<Project> projects = new ArrayList<>();
         projects.add(new Project("Project 1", "This is project 1"));
         projects.add(new Project("Project 2", "This is project 2"));
@@ -36,5 +38,16 @@ public class ProjectSeeder {
         for (Project project : projects) {
             projectController.create(project);
         }
+    }
+
+    public void truncate() {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Query query = session.createQuery("DELETE FROM Project");
+        query.executeUpdate();
+
+        transaction.commit();
+        session.close();
     }
 }

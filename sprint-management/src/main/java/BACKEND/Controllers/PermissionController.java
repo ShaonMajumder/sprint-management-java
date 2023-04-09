@@ -1,58 +1,57 @@
 package BACKEND.Controllers;
 
-import BACKEND.Models.Project;
-import jakarta.persistence.Query;
+import BACKEND.Models.Permission;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 import java.util.List;
 
-public class ProjectController implements ControllerInterface {
+public class PermissionController implements ControllerInterface {
 
     private final SessionFactory sessionFactory;
-    private Project project;
+    private Permission permission;
 
     /**
-     * Constructor for ProjectController.
+     * Constructor for PermissionController.
      * 
      * @param sessionFactory The Hibernate SessionFactory used to create sessions.
      */
-    public ProjectController(SessionFactory sessionFactory) {
+    public PermissionController(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+
     }
 
     /**
-     * Gets the currently selected Project.
+     * Gets the currently selected Permission.
      * 
-     * @return The currently selected Project.
+     * @return The currently selected Permission.
      */
-    public Project getProject() {
-        return project;
+    public Permission getPermission() {
+        return permission;
     }
 
     /**
-     * Sets the currently selected Project.
+     * Sets the currently selected Permission.
      * 
-     * @param project The Project to set as the currently selected Project.
+     * @param permission The Permission to set as the currently selected Permission.
      */
-    public void setProject(Project project) {
-        this.project = project;
+    public void setPermission(Permission permission) {
+        this.permission = permission;
     }
 
     /**
-     * Retrieves all Projects from the database.
+     * Retrieves all Permissions from the database.
      * 
-     * @return A List of all Projects in the database.
+     * @return A List of all Permissions in the database.
      */
-    public List<Project> getAllProjects() {
+    public List<Permission> getAllPermissions() {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
-        List<Project> projects = null;
+        List<Permission> permissions = null;
 
         try {
             transaction = session.beginTransaction();
-            projects = session.createQuery("from Project").list();
+            permissions = session.createQuery("from Permission").list();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -63,23 +62,24 @@ public class ProjectController implements ControllerInterface {
             session.close();
         }
 
-        return projects;
+        return permissions;
     }
 
     /**
-     * Retrieves a Project by its ID.
+     * Retrieves a Permission by its ID.
      * 
-     * @param id The ID of the Project to retrieve.
-     * @return The Project with the specified ID, or null if no such Project exists.
+     * @param id The ID of the Permission to retrieve.
+     * @return The Permission with the specified ID, or null if no such Permission
+     *         exists.
      */
-    public Project getById(int id) {
+    public Permission getById(int id) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
-        Project project = null;
+        Permission permission = null;
 
         try {
             transaction = session.beginTransaction();
-            project = session.get(Project.class, id);
+            permission = session.get(Permission.class, id);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -90,25 +90,25 @@ public class ProjectController implements ControllerInterface {
             session.close();
         }
 
-        return project;
+        return permission;
     }
 
     /**
-     * Creates a new project with the specified name and description.
+     * Creates a new permission with the specified name and description.
      *
-     * @param name        The name of the project.
-     * @param description The description of the project.
-     * @return The ID of the newly created project.
+     * @param name        The name of the permission.
+     * @param description The description of the permission.
+     * @return The ID of the newly created permission.
      */
     public int create(String name, String description) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
-        int projectId = 0;
+        int permissionId = 0;
 
         try {
             transaction = session.beginTransaction();
-            Project project = new Project(name, description);
-            projectId = (int) session.save(project);
+            Permission permission = new Permission(name, description);
+            permissionId = (int) session.save(permission);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -119,24 +119,23 @@ public class ProjectController implements ControllerInterface {
             session.close();
         }
 
-        return projectId;
+        return permissionId;
     }
 
     /**
-     * Creates a new project with the specified name and description.
+     * Creates a new permission with the specified name and description.
      *
-     * @param name        The name of the project.
-     * @param description The description of the project.
-     * @return The ID of the newly created project.
+     * @param permission The permission to create.
+     * @return The ID of the newly created permission.
      */
-    public int create(Project project) {
+    public int create(Permission permission) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
-        int projectId = 0;
+        int permissionId = 0;
 
         try {
             transaction = session.beginTransaction();
-            projectId = (int) session.save(project);
+            permissionId = (int) session.save(permission);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -147,17 +146,17 @@ public class ProjectController implements ControllerInterface {
             session.close();
         }
 
-        return projectId;
+        return permissionId;
     }
 
     @Override
-    public boolean updateCore(Object project) {
-        if (project instanceof Project) {
-            System.out.println("obj is not an instance of Project");
+    public boolean updateCore(Object permission) {
+        if (permission instanceof Permission) {
+            System.out.println("obj is not an instance of Permission");
             return false;
         }
 
-        if (project == null) {
+        if (permission == null) {
             System.out.println("No project selected");
             return false;
         }
@@ -168,7 +167,7 @@ public class ProjectController implements ControllerInterface {
 
         try {
             transaction = session.beginTransaction();
-            session.update(project);
+            session.update(permission);
             transaction.commit();
             updated = true;
         } catch (Exception e) {
@@ -183,25 +182,25 @@ public class ProjectController implements ControllerInterface {
         return updated;
     }
 
-    public boolean updateByNewModel(Project updatedProject) {
-        return this.updateCore(updatedProject);
+    public boolean updateByNewModel(Permission updatedPermission) {
+        return this.updateCore(updatedPermission);
     }
 
-    public boolean updateByNewData(int projectId, String newProjectName, String newDescription) {
-        Project updatedProject = new Project(newProjectName, newDescription);
-        updatedProject.setId(projectId);
-        return this.updateCore(updatedProject);
+    public boolean updateByNewData(int permissionId, String newPermissionName, String newDescription) {
+        Permission updatedPermission = new Permission(newPermissionName, newDescription);
+        updatedPermission.setId(permissionId);
+        return this.updateCore(updatedPermission);
     }
 
     public boolean update() {
-        return this.updateCore(this.project);
+        return this.updateCore(this.permission);
     }
 
     /**
-     * Deletes a project by its ID.
+     * Deletes a permission by its ID.
      *
-     * @param id The ID of the project to delete.
-     * @return true if the project was deleted successfully, false otherwise.
+     * @param id The ID of the permission to delete.
+     * @return true if the permission was deleted successfully, false otherwise.
      */
     public boolean delete(int id) {
         Session session = sessionFactory.openSession();
@@ -210,11 +209,13 @@ public class ProjectController implements ControllerInterface {
 
         try {
             transaction = session.beginTransaction();
-            Project project = session.get(Project.class, id);
-            if (project != null) {
-                session.delete(project);
+            Permission permission = session.get(Permission.class, id);
+            if (permission != null) {
+                session.delete(permission);
                 transaction.commit();
                 deleted = true;
+            } else {
+                System.out.println("Permission with id " + id + " not found");
             }
         } catch (Exception e) {
             if (transaction != null) {
@@ -229,24 +230,21 @@ public class ProjectController implements ControllerInterface {
     }
 
     /**
-     * Deletes a project.
+     * Deletes a permission.
      *
-     * @param paramProject The project to delete.
-     * @return true if the project was deleted successfully, false otherwise.
+     * @param permission The permission to delete.
+     * @return true if the permission was deleted successfully, false otherwise.
      */
-    public boolean delete(Project paramProject) {
+    public boolean delete(Permission permission) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
         boolean deleted = false;
 
         try {
             transaction = session.beginTransaction();
-            Project project = session.get(Project.class, paramProject.getId());
-            if (project != null) {
-                session.delete(project);
-                transaction.commit();
-                deleted = true;
-            }
+            session.delete(permission);
+            transaction.commit();
+            deleted = true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -261,9 +259,9 @@ public class ProjectController implements ControllerInterface {
 
     /**
      * 
-     * Deletes the currently selected project.
+     * Deletes the currently selected permission.
      * 
-     * @return true if the project was successfully deleted, false otherwise
+     * @return true if the permission was successfully deleted, false otherwise
      */
     public boolean delete() {
         Session session = sessionFactory.openSession();
@@ -272,9 +270,9 @@ public class ProjectController implements ControllerInterface {
 
         try {
             transaction = session.beginTransaction();
-            Project project = session.get(Project.class, this.project.getId());
-            if (project != null) {
-                session.delete(project);
+            Permission permission = session.get(Permission.class, this.permission.getId());
+            if (permission != null) {
+                session.delete(permission);
                 transaction.commit();
                 deleted = true;
             }
@@ -289,4 +287,5 @@ public class ProjectController implements ControllerInterface {
 
         return deleted;
     }
+
 }

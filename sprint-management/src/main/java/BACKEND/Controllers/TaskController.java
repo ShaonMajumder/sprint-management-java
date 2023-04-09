@@ -1,15 +1,12 @@
 package BACKEND.Controllers;
 
 import BACKEND.Models.Task;
-import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-
 import java.util.List;
 
-public class TaskController {
+public class TaskController implements ControllerInterface{
 
     private final SessionFactory sessionFactory;
     private Task task;
@@ -125,27 +122,21 @@ public class TaskController {
     }
 
     /**
-     * Updates a Task with the specified ID.
+     * Creates a new task with the specified name and description.
      *
-     * @param id          The ID of the Task to update.
-     * @param updatedTask The updated Task.
-     * @return True if the Task was successfully updated, false otherwise.
+     * @param name        The name of the task.
+     * @param description The description of the task.
+     * @return The ID of the newly created task.
      */
-    public boolean update(int id, Task updatedTask) {
+    public int create(Task task) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
-        boolean updated = false;
+        int taskId = 0;
 
         try {
             transaction = session.beginTransaction();
-            Task task = session.get(Task.class, id);
-            if (task != null) {
-                task.setName(updatedTask.getName());
-                task.setDescription(updatedTask.getDescription());
-                session.update(this.task);
-                transaction.commit();
-                updated = true;
-            }
+            taskId = (int) session.save(task);
+            transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -155,53 +146,17 @@ public class TaskController {
             session.close();
         }
 
-        return updated;
+        return taskId;
     }
 
-    /**
-     * Updates a task by its ID.
-     *
-     * @param taskId         The ID of the task to update.
-     * @param newName        The new name for the task.
-     * @param newDescription The new description for the task.
-     * @return true if the task was updated successfully, false otherwise.
-     */
-    public boolean update(int taskId, String newName, String newDescription, int newPoints, double newDuration) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        boolean updated = false;
-
-        try {
-            transaction = session.beginTransaction();
-            Task task = session.get(Task.class, taskId);
-            if (task != null) {
-                task.setName(newName);
-                task.setDescription(newDescription);
-                session.update(task);
-                transaction.commit();
-                updated = true;
-            } else {
-                System.out.println("Task with id " + taskId + " not found");
-            }
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
+    @Override
+    public boolean updateCore(Object task) {
+        if (task instanceof Task) {
+            System.out.println("obj is not an instance of Task");
+            return false;
         }
 
-        return updated;
-    }
-
-    /**
-     * Updates the task currently selected by this object.
-     *
-     * @return true if the task was updated successfully, false otherwise.
-     */
-    public boolean update() {
-        if (this.task == null) {
+        if (task == null) {
             System.out.println("No task selected");
             return false;
         }
@@ -212,7 +167,7 @@ public class TaskController {
 
         try {
             transaction = session.beginTransaction();
-            session.update(this.task);
+            session.update(task);
             transaction.commit();
             updated = true;
         } catch (Exception e) {
@@ -225,6 +180,20 @@ public class TaskController {
         }
 
         return updated;
+    }
+
+    public boolean updateByNewModel(Task updatedTask) {
+        return this.updateCore(updatedTask);
+    }
+
+    public boolean updateByNewData(int taskId, String newName, String newDescription, int newPoints, double newDuration) {
+        Task updatedTask = new Task( newName,  newDescription, newPoints, newDuration) ;
+        updatedTask.setId(taskId);
+        return this.updateCore(updatedTask);
+    }
+
+    public boolean update() {
+        return this.updateCore(this.task);
     }
 
     /**

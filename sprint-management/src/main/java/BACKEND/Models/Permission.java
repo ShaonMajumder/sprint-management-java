@@ -1,17 +1,17 @@
 package BACKEND.Models;
 
-import org.hibernate.SessionFactory;
-import jakarta.persistence.*;
-import jdk.jfr.Description;
-import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
-
 import java.sql.Timestamp;
-import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tasks")
-public class Task {
+@Table(name = "permissions")
+public class Permission {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,12 +24,6 @@ public class Task {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "points")
-    private int points;
-
-    @Column(name = "duration")
-    private double duration;
-
     @Column(name = "created_at", nullable = false, updatable = false)
     private Timestamp createdAt;
 
@@ -40,15 +34,13 @@ public class Task {
     private Timestamp deletedAt;
 
     // Constructors
-    public Task() {
+    public Permission() {
 
     }
 
-    public Task(String name, String description, int points, double duration) {
+    public Permission(String name, String description) {
         this.name = name;
         this.description = description;
-        this.points = points;
-        this.duration = duration;
         this.createdAt = new Timestamp(System.currentTimeMillis());
     }
 
@@ -77,22 +69,6 @@ public class Task {
         this.description = description;
     }
 
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public double getDuration() {
-        return duration;
-    }
-
-    public void setDuration(double duration) {
-        this.duration = duration;
-    }
-
     public Timestamp getCreatedAt() {
         return createdAt;
     }
@@ -119,11 +95,10 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Tasks{" +
+        return "Permission{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", points=" + points +
-                ", duration=" + duration +
+                ", description='" + description + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", deletedAt=" + deletedAt +

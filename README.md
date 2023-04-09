@@ -13,12 +13,14 @@ And Users are : Admin, Shaon, Muhaimen, Sourav
 +---------------------------+   +---------------------------+
 | id          INT           |   | id          INT           |
 | name        VARCHAR(255)  |   | name        VARCHAR(255)  |
-| description VARCHAR(1000) |   | start_date  DATE          |
-| created_at  TIMESTAMP     |   | end_date    DATE          |
-| updated_at  TIMESTAMP     |   | created_at  TIMESTAMP     |
-| deleted_at  TIMESTAMP NULL|   | updated_at  TIMESTAMP     |
-+---------------------------+   | deleted_at  TIMESTAMP NULL|
+| description VARCHAR(1000) |   | description VARCHAR(1000) |
+| created_at  TIMESTAMP     |   | start_date  DATE          |
+| updated_at  TIMESTAMP     |   | end_date    DATE          |
+| deleted_at  TIMESTAMP NULL|   | created_at  TIMESTAMP     |
++---------------------------+   | updated_at  TIMESTAMP     |
+                                | deleted_at  TIMESTAMP NULL|
                                 +---------------------------+
+
 
 +---------------------------+   +---------------------------+
 |          tasks            |   |        task_statuses      |
@@ -57,7 +59,7 @@ And Users are : Admin, Shaon, Muhaimen, Sourav
 | created_at  TIMESTAMP     |   | created_at  TIMESTAMP     |
 | updated_at  TIMESTAMP     |   | updated_at  TIMESTAMP     |
 | deleted_at  TIMESTAMP NULL|   | deleted_at  TIMESTAMP NULL|
-+---------------------------+  +---------------------------+
++---------------------------+   +---------------------------+
 
 +-----------------------------+   +---------------------------+
 |  role_has_permissions       |   | project_sprint_has_tasks  |
