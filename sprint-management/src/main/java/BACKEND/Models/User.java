@@ -1,16 +1,15 @@
 package BACKEND.Models;
 
-import org.hibernate.SessionFactory;
 import jakarta.persistence.*;
-import jdk.jfr.Description;
-import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
+@NamedQuery(
+        name = "findUserByEmail",
+        query = "SELECT u FROM User u WHERE u.email = :email"
+)
 public class User {
 
     @Id

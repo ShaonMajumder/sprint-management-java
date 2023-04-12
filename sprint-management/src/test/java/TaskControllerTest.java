@@ -1,27 +1,28 @@
-import static org.junit.Assert.assertEquals;
-
-
+import BACKEND.Controllers.TaskController;
+import BACKEND.Models.Task;
+import BACKEND.Seeders.TaskSeeder;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import BACKEND.Controllers.TaskController;
-import BACKEND.Models.Task;
-import BACKEND.Seeders.TaskSeeder;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class TaskControllerTest {
 
     private static TaskController taskController;
     private static SessionFactory sessionFactory;
+    private static TaskSeeder taskSeeder;
 
     @BeforeClass
     public static void setup() {
         Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
         sessionFactory = configuration.buildSessionFactory();
 
-        TaskSeeder taskSeeder = new TaskSeeder(sessionFactory);
+        taskSeeder = new TaskSeeder(sessionFactory);
         taskSeeder.truncate();
         taskSeeder.seed();
 
@@ -46,9 +47,9 @@ public class TaskControllerTest {
     @Test
     public void testUpdateTask() throws ClassNotFoundException {
         int taskId = taskController.create("Test Task", "This is a test task", 5, 2.5);
-        boolean success = taskController.updateByNewData(taskId, "Updated Task", "This is an updated task", 10, 4.0);
+        boolean successfullyUpdated = taskController.updateByNewData(taskId, "Updated Task", "This is an updated task", 10, 4.0);
         Task task = taskController.getById(taskId);
-        assertEquals(true, success);
+        assertTrue(successfullyUpdated);
         assertEquals("Updated Task", task.getName());
         assertEquals("This is an updated task", task.getDescription());
         assertEquals(10, task.getPoints());
@@ -58,9 +59,18 @@ public class TaskControllerTest {
     @Test
     public void testDeleteTask() throws ClassNotFoundException {
         int taskId = taskController.create("Test Task", "This is a test task", 5, 2.5);
-        boolean success = taskController.delete(taskId);
-        Task task = taskController.getById(taskId);
-        assertEquals(true, success);
-        assertEquals(null, task);
+        boolean successfullyDeleted = taskController.delete(taskId);
+        Task deletedTaskId = taskController.getById(taskId);
+        assertTrue(successfullyDeleted);
+        assertNull(deletedTaskId);
+    }
+
+    @Test
+    public void testGetAllTasks() {
+        taskSeeder.truncate();
+        taskSeeder.seed();
+        List<Task> tasks = taskController.getAllModels();
+        assertNotNull(tasks);
+        assertEquals(3, tasks.size());
     }
 }

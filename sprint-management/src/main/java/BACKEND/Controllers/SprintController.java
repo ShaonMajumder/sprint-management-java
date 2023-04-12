@@ -8,66 +8,51 @@ import org.hibernate.Transaction;
 import java.sql.Date;
 import java.util.List;
 
-public class SprintController {
+public class SprintController implements ControllerInterface<Sprint> {
 
     private final SessionFactory sessionFactory;
+    private final ControllerHelper controller;
+
     private Sprint sprint;
 
     public SprintController(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+        this.controller = new ControllerHelper(sessionFactory);
+        this.controller.setModelName("Sprint");
     }
 
+    @Override
     public Sprint getModel() {
         return sprint;
     }
 
-    public void setSprint(Sprint sprint) {
+    @Override
+    public void setModel(Sprint sprint) {
         this.sprint = sprint;
     }
 
+    @Override
     public List<Sprint> getAllModels() {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        List<Sprint> sprints = null;
-
-        try {
-            transaction = session.beginTransaction();
-            sprints = session.createQuery("from Sprint").list();
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-
-        return sprints;
+        return controller.getAllModels();
     }
 
-    public Sprint getById(int id) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        Sprint sprint = null;
-
-        try {
-            transaction = session.beginTransaction();
-            sprint = session.get(Sprint.class, id);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-
-        return sprint;
+    @Override
+    public Sprint getById(int id) throws ClassNotFoundException {
+        return (Sprint) controller.getById(id);
     }
 
-    public int create(String name, String description, Date startDate, Date endDate) {
+    @Override
+    public int create(Object... args) {
+        if (args.length < 4) {
+            System.out.println("Insufficient arguments provided");
+            return -1;
+        }
+
+        String name = (String) args[0];
+        String description = (String) args[1];
+        Date startDate = (Date) args[2];
+        Date endDate = (Date) args[3];
+
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
         int sprintId = 0;
@@ -75,7 +60,8 @@ public class SprintController {
         try {
             transaction = session.beginTransaction();
             Sprint sprint = new Sprint(name, description, startDate, endDate);
-            sprintId = (int) session.save(sprint);
+            session.persist(sprint);
+            sprintId = sprint.getId();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -89,6 +75,7 @@ public class SprintController {
         return sprintId;
     }
 
+    @Override
     public int create(Sprint sprint) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
@@ -96,7 +83,8 @@ public class SprintController {
 
         try {
             transaction = session.beginTransaction();
-            sprintId = (int) session.save(sprint);
+            session.persist(sprint);
+            sprintId = sprint.getId();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -110,13 +98,8 @@ public class SprintController {
         return sprintId;
     }
 
-//    @Override
-    public boolean updateCore(Object sprint) {
-        if (sprint instanceof Sprint) {
-            System.out.println("obj is not an instance of Sprint");
-            return false;
-        }
-
+    @Override
+    public boolean updateCore(Sprint sprint) {
         if (sprint == null) {
             System.out.println("No sprint selected");
             return false;
@@ -128,7 +111,7 @@ public class SprintController {
 
         try {
             transaction = session.beginTransaction();
-            session.update(sprint);
+            session.merge(sprint);
             transaction.commit();
             updated = true;
         } catch (Exception e) {
@@ -143,18 +126,35 @@ public class SprintController {
         return updated;
     }
 
+    @Override
     public boolean updateByNewModel(Sprint updatedSprint) {
         return this.updateCore(updatedSprint);
     }
 
-    public boolean updateByNewData(int sprintId, String newName, String newDescription, Date newStartDate, Date newEndDate) {
-        Sprint updatedSprint = new Sprint(newName, newDescription, newStartDate, newEndDate);
+    @Override
+    public boolean updateByNewData(int sprintId, Object... args) {
+        if (args.length < 4) {
+            System.out.println("Insufficient arguments provided");
+            return false;
+        }
+
+        String name = (String) args[0];
+        String description = (String) args[1];
+        Date startDate = (Date) args[2];
+        Date endDate = (Date) args[3];
+
+        Sprint updatedSprint = new Sprint(name, description, startDate, endDate);
         updatedSprint.setId(sprintId);
         return this.updateCore(updatedSprint);
     }
 
+    @Override
     public boolean update() {
         return this.updateCore(this.sprint);
     }
 
+    @Override
+    public boolean delete(int id) throws ClassNotFoundException {
+        return controller.delete(id);
+    }
 }

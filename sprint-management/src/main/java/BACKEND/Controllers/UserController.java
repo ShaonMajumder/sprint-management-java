@@ -11,7 +11,7 @@ import java.util.List;
 public class UserController implements ControllerInterface<User>{
 
     private final SessionFactory sessionFactory;
-    private ControllerHelper controller;
+    private final ControllerHelper controller;
 
     private User user;
 
@@ -63,14 +63,15 @@ public class UserController implements ControllerInterface<User>{
         try {
             transaction = session.beginTransaction();
             User user = new User(username, password, email, firstName, lastName);
-            String salt = "";
-            if(this.salt != ""){
+            String salt;
+            if (this.salt != "") {
                 salt = this.salt;
-            }else{
+            } else {
                 salt = BCrypt.gensalt();
             }
-            user.setPassword( BCrypt.hashpw( user.getPassword(), salt) );
-            userId = (int) session.save(user);
+            user.setPassword(BCrypt.hashpw(user.getPassword(), salt));
+            session.persist(user);
+            userId = user.getId();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -92,9 +93,15 @@ public class UserController implements ControllerInterface<User>{
 
         try {
             transaction = session.beginTransaction();
-            String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
-            user.setPassword( hashedPassword );
-            userId = (int) session.save(user);
+            String salt;
+            if (this.salt != "") {
+                salt = this.salt;
+            } else {
+                salt = BCrypt.gensalt();
+            }
+            user.setPassword(BCrypt.hashpw(user.getPassword(), salt));
+            session.persist(user);
+            userId = user.getId();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -125,7 +132,7 @@ public class UserController implements ControllerInterface<User>{
 
         try {
             transaction = session.beginTransaction();
-            session.update(user);
+            session.merge(user);
             transaction.commit();
             updated = true;
         } catch (Exception e) {

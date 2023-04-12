@@ -57,5 +57,4 @@ public class AuthController {
         }
     }
 
-    // Other methods and constructors omitted for brevity
 }
