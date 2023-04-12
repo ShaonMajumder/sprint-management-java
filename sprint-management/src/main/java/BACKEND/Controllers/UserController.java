@@ -144,4 +144,9 @@ public class UserController implements ControllerInterface<User>{
     public boolean update() {
         return this.updateCore(this.user);
     }
+
+    @Override
+    public boolean delete(int id) throws ClassNotFoundException {
+        return controller.delete(id);
+    }
 }

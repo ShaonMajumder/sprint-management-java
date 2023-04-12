@@ -23,6 +23,8 @@ public class GetDataDBExample {
         User resultUser = users.getById(12);
         System.out.println(resultUser);
 
+//        users.delete(13);
+
 //        users.setModel(resultUser);
 //        System.out.println(users.getModel());
 //        System.out.println( users.create("testusername", "12345678", "testuser@admin.com", "Test", "User"));

@@ -16,4 +16,5 @@ public interface ControllerInterface <T> {
     boolean updateByNewModel(T entity);
     boolean updateByNewData(int userId, String... args);
     boolean update();
+    boolean delete(int id) throws ClassNotFoundException;
 }

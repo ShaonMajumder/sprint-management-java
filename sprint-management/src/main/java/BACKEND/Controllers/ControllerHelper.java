@@ -61,7 +61,7 @@ public class ControllerHelper {
             modelClass = Class.forName("BACKEND.Models." + this.model);
         } catch (ClassNotFoundException e) {
             // Handle the exception here
-            System.out.println("Class not found !");
+            System.out.println(this.model + " Class not found !");
             return null;
         }
 
@@ -174,6 +174,52 @@ public class ControllerHelper {
 //    public boolean update() {
 //        return this.updateCore(this.user);
 //    }
+
+
+
+    /**
+     * Deletes a permission by its ID.
+     *
+     * @param id The ID of the permission to delete.
+     * @return true if the permission was deleted successfully, false otherwise.
+     */
+    public boolean delete(int id) throws ClassNotFoundException {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        boolean deleted = false;
+        Object object = null;
+        Class<?> modelClass = null;
+
+        try {
+            modelClass = Class.forName("BACKEND.Models." + this.model);
+        } catch (ClassNotFoundException e) {
+            // Handle the exception here
+            System.out.println(this.model + " Class not found !");
+            return false;
+        }
+
+        try {
+            transaction = session.beginTransaction();
+            object = session.get(modelClass, id);
+
+            if (object != null) {
+                session.delete(object);
+                transaction.commit();
+                deleted = true;
+            } else {
+                System.out.println(this.model + " with id " + id + " not found");
+            }
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return deleted;
+    }
 
 
 }
