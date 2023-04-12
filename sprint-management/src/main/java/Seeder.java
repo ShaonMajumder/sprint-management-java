@@ -22,7 +22,7 @@ public class Seeder {
 //        ProjectSeeder projectSeeder = new ProjectSeeder(sessionFactory);
 //        SprintSeeder sprintSeeder = new SprintSeeder(sessionFactory);
 //        TaskSeeder taskSeeder = new TaskSeeder(sessionFactory);
-//        UserSeeder userSeeder = new UserSeeder(sessionFactory);
+        UserSeeder userSeeder = new UserSeeder(sessionFactory);
 //        RoleSeeder roleSeeder = new RoleSeeder(sessionFactory);
 //        PermissionSeeder permissionSeeder = new PermissionSeeder(sessionFactory);
 //
@@ -31,8 +31,8 @@ public class Seeder {
 //
 ////         sprintSeeder.seed();
 ////         taskSeeder.seed();
-//        userSeeder.truncate();
-//         userSeeder.seed();
+        userSeeder.truncate();
+         userSeeder.seed();
 //        // roleSeeder.seed();
 //
 //        AuthController authController = new AuthController(sessionFactory);

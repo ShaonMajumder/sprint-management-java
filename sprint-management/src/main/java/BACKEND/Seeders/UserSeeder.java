@@ -30,10 +30,10 @@ public class UserSeeder implements SeederInterface {
     public void seed() {
         UserController userController = new UserController(sessionFactory);
         List<User> users = new ArrayList<>();
-        users.add(new User("admin", BCrypt.hashpw("12345678", BCrypt.gensalt()), "admin@admin.com", "Primary", "Admin"));
-        users.add(new User("turag", BCrypt.hashpw("12345678", BCrypt.gensalt()), "turag@admin.com", "Turag", "Muhaimen"));
-        users.add(new User("sourav", BCrypt.hashpw("12345678", BCrypt.gensalt()), "sourav@admin.com", "Sourav", "Sur"));
-        users.add(new User("shaon", BCrypt.hashpw("12345678", BCrypt.gensalt()), "shaon@admin.com", "Shaon", "Majumder"));
+        users.add(new User("admin", "12345678", "admin@admin.com", "Primary", "Admin"));
+        users.add(new User("turag", "12345678", "turag@admin.com", "Turag", "Muhaimen"));
+        users.add(new User("sourav", "12345678", "sourav@admin.com", "Sourav", "Sur"));
+        users.add(new User("shaon", "12345678", "shaon@admin.com", "Shaon", "Majumder"));
 
         // Add users to database
         for (User user : users) {

@@ -5,10 +5,15 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 
 public interface ControllerInterface <T> {
-    final SessionFactory sessionFactory = null;
-    
-    Object getModel();
-    void setModel(Object obj);
+    final SessionFactory sessionFactory = null;    
+    T getModel();
+    void setModel(T entity);
     List <T> getAllModels();
-    boolean updateCore(Object obj);
+    T getById(int id);
+    int create(String... args);
+    int create(T entity);
+    boolean updateCore(T entity);
+    boolean updateByNewModel(T entity);
+    boolean updateByNewData(int userId, String... args);
+    boolean update();
 }
