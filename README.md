@@ -314,9 +314,12 @@ Window 12:
 ## Technologies
 
 - Front-end: Java UI Frames
-- Back-end: Java and Mysql
+- Back-end: Java
+- DB : Mysql
+- Web Framework : Springboot
 - ORM : Hibernate
 - Build Tools : Maven
+- Test Tools : JUnit
 
 ## Contributors
 

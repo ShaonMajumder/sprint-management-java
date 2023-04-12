@@ -42,12 +42,17 @@ public class UserController implements ControllerInterface<User>{
     }
 
     @Override
-    public int create(String... args) {
-        String username = args[0];
-        String password = args[1];
-        String email = args[2];
-        String firstName = args[3];
-        String lastName = args[4];
+    public int create(Object... args) {
+        if (args.length < 5) {
+            System.out.println("Insufficient arguments provided");
+            return -1;
+        }
+
+        String username = (String) args[0];
+        String password = (String) args[1];
+        String email = (String) args[2];
+        String firstName = (String) args[3];
+        String lastName = (String) args[4];
 
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
@@ -128,12 +133,17 @@ public class UserController implements ControllerInterface<User>{
     }
 
     @Override
-    public boolean updateByNewData(int userId, String... args ) {
-        String newUsername = args[0];
-        String newPassword = args[1];
-        String newEmail = args[2];
-        String newFirstName = args[3];
-        String newLastName = args[4];
+    public boolean updateByNewData(int userId, Object... args ) {
+        if (args.length < 4) {
+            System.out.println("Insufficient arguments provided");
+            return false;
+        }
+        
+        String newUsername = (String) args[0];
+        String newPassword = (String) args[1];
+        String newEmail = (String) args[2];
+        String newFirstName = (String) args[3];
+        String newLastName = (String) args[4];
 
         User updatedUser = new User(newUsername, newPassword, newEmail, newFirstName, newLastName);
         updatedUser.setId(userId);

@@ -10,11 +10,11 @@ public interface ControllerInterface <T> {
     void setModel(T entity);
     List <T> getAllModels();
     T getById(int id) throws ClassNotFoundException;
-    int create(String... args);
+    int create(Object... args);
     int create(T entity);
     boolean updateCore(T entity);
     boolean updateByNewModel(T entity);
-    boolean updateByNewData(int userId, String... args);
+    boolean updateByNewData(int userId, Object... args);
     boolean update();
     boolean delete(int id) throws ClassNotFoundException;
 }
