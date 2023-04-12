@@ -9,7 +9,7 @@ public interface ControllerInterface <T> {
     T getModel();
     void setModel(T entity);
     List <T> getAllModels();
-    T getById(int id);
+    T getById(int id) throws ClassNotFoundException;
     int create(String... args);
     int create(T entity);
     boolean updateCore(T entity);

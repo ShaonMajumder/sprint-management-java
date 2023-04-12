@@ -37,25 +37,8 @@ public class UserController implements ControllerInterface<User>{
     }
 
     @Override
-    public User getById(int id) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        User user = null;
-
-        try {
-            transaction = session.beginTransaction();
-            user = session.get(User.class, id);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-
-        return user;
+    public User getById(int id) throws ClassNotFoundException {
+        return (User) controller.getById(id);
     }
 
     @Override

@@ -11,7 +11,7 @@ import org.hibernate.cfg.Configuration;
 
 public class GetDataDBExample {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
         Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
         // .addAnnotatedClass(Task.class)
         SessionFactory sessionFactory = configuration.buildSessionFactory();
@@ -19,13 +19,14 @@ public class GetDataDBExample {
 
 
         UserController users = new UserController(sessionFactory);
-
 //        System.out.println( users.getAllModels() );
         User resultUser = users.getById(12);
-        users.setModel(resultUser);
-        System.out.println(users.getModel());
+        System.out.println(resultUser);
 
+//        users.setModel(resultUser);
+//        System.out.println(users.getModel());
 //        System.out.println( users.create("testusername", "12345678", "testuser@admin.com", "Test", "User"));
+
         // close session factory
         sessionFactory.close();
     }

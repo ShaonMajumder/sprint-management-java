@@ -33,7 +33,7 @@ public class ControllerHelper {
     public List getAllModels() {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
-        List<User> objects = null;
+        List objects = null;
 
         try {
             transaction = session.beginTransaction();
@@ -51,14 +51,23 @@ public class ControllerHelper {
         return objects;
     }
 
-    public User getById(int id) {
+    public Object getById(int id) throws ClassNotFoundException {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
-        User user = null;
+        Object object = null;
+        Class<?> modelClass = null;
+
+        try {
+            modelClass = Class.forName("BACKEND.Models." + this.model);
+        } catch (ClassNotFoundException e) {
+            // Handle the exception here
+            System.out.println("Class not found !");
+            return null;
+        }
 
         try {
             transaction = session.beginTransaction();
-            user = session.get(User.class, id);
+            object = session.get(modelClass, id);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -69,7 +78,11 @@ public class ControllerHelper {
             session.close();
         }
 
-        return user;
+
+
+
+
+        return object;
     }
 
     public int create(String username, String password, String email, String firstName, String lastName) {
