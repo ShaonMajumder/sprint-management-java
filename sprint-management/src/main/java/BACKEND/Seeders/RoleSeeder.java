@@ -1,12 +1,11 @@
 package BACKEND.Seeders;
 
-import BACKEND.Controllers.UserController;
-import BACKEND.Models.User;
+import BACKEND.Controllers.RoleController;
+import BACKEND.Models.Role;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,16 +27,15 @@ public class RoleSeeder implements SeederInterface {
      * Seeds the database with sample users.
      */
     public void seed() {
-        UserController userController = new UserController(sessionFactory);
-        List<User> users = new ArrayList<>();
-        users.add(new User("admin", BCrypt.hashpw("12345678", BCrypt.gensalt()), "admin@admin.com", "Primary", "Admin"));
-        users.add(new User("turag", BCrypt.hashpw("12345678", BCrypt.gensalt()), "turag@admin.com", "Turag", "Muhaimen"));
-        users.add(new User("sourav", BCrypt.hashpw("12345678", BCrypt.gensalt()), "sourav@admin.com", "Sourav", "Sur"));
-        users.add(new User("shaon", BCrypt.hashpw("12345678", BCrypt.gensalt()), "shaon@admin.com", "Shaon", "Majumder"));
+        RoleController roleController = new RoleController(sessionFactory);
+        List<Role> roles = new ArrayList<>();
+        roles.add(new Role("Admin", "Can manage all aspects of the system"));
+        roles.add(new Role("Manager", "Can manage users and projects"));
+        roles.add(new Role("Developer", "Can view and update projects"));
 
         // Add users to database
-        for (User user : users) {
-            userController.create(user);
+        for (Role role : roles) {
+            roleController.create(role);
         }
     }
 
@@ -48,7 +46,7 @@ public class RoleSeeder implements SeederInterface {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        Query query = session.createQuery("DELETE FROM User");
+        Query query = session.createQuery("DELETE FROM Role");
         query.executeUpdate();
 
         transaction.commit();

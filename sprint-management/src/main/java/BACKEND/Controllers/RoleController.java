@@ -1,43 +1,44 @@
 package BACKEND.Controllers;
 
-import BACKEND.Models.Project;
+import BACKEND.Models.Role;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import java.sql.Timestamp;
 import java.util.List;
 
-public class ProjectController implements ControllerInterface<Project> {
+public class RoleController implements ControllerInterface<Role> {
 
     private final SessionFactory sessionFactory;
     private final ControllerHelper controller;
 
-    private Project project;
+    private Role role;
 
-    public ProjectController(SessionFactory sessionFactory) {
+    public RoleController(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
         this.controller = new ControllerHelper(sessionFactory);
-        this.controller.setModelName("Project");
+        this.controller.setModelName("Role");
     }
 
     @Override
-    public Project getModel() {
-        return project;
+    public Role getModel() {
+        return role;
     }
 
     @Override
-    public void setModel(Project project) {
-        this.project = project;
+    public void setModel(Role role) {
+        this.role = role;
     }
 
     @Override
-    public List<Project> getAllModels() {
+    public List<Role> getAllModels() {
         return controller.getAllModels();
     }
 
     @Override
-    public Project getById(int id) throws ClassNotFoundException {
-        return (Project) controller.getById(id);
+    public Role getById(int id) throws ClassNotFoundException {
+        return (Role) controller.getById(id);
     }
 
     @Override
@@ -52,13 +53,13 @@ public class ProjectController implements ControllerInterface<Project> {
 
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
-        int projectId = 0;
+        int roleId = 0;
 
         try {
             transaction = session.beginTransaction();
-            Project project = new Project(name, description);
-            session.persist(project);
-            projectId = project.getId();
+            Role role = new Role(name, description);
+            session.persist(role);
+            roleId = role.getId();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -69,19 +70,19 @@ public class ProjectController implements ControllerInterface<Project> {
             session.close();
         }
 
-        return projectId;
+        return roleId;
     }
 
     @Override
-    public int create(Project project) {
+    public int create(Role role) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
-        int projectId = 0;
+        int roleId = 0;
 
         try {
             transaction = session.beginTransaction();
-            session.persist(project);
-            projectId = project.getId();
+            session.persist(role);
+            roleId = role.getId();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -92,13 +93,13 @@ public class ProjectController implements ControllerInterface<Project> {
             session.close();
         }
 
-        return projectId;
+        return roleId;
     }
 
     @Override
-    public boolean updateCore(Project project) {
-        if (project == null) {
-            System.out.println("No project selected");
+    public boolean updateCore(Role role) {
+        if (role == null) {
+            System.out.println("No role selected");
             return false;
         }
 
@@ -108,7 +109,7 @@ public class ProjectController implements ControllerInterface<Project> {
 
         try {
             transaction = session.beginTransaction();
-            session.merge(project);
+            session.merge(role);
             transaction.commit();
             updated = true;
         } catch (Exception e) {
@@ -124,12 +125,12 @@ public class ProjectController implements ControllerInterface<Project> {
     }
 
     @Override
-    public boolean updateByNewModel(Project updatedProject) {
-        return this.updateCore(updatedProject);
+    public boolean updateByNewModel(Role updatedRole) {
+        return this.updateCore(updatedRole);
     }
 
     @Override
-    public boolean updateByNewData(int projectId, Object... args) {
+    public boolean updateByNewData(int roleId, Object... args) {
         if (args.length < 2) {
             System.out.println("Insufficient arguments provided");
             return false;
@@ -138,14 +139,15 @@ public class ProjectController implements ControllerInterface<Project> {
         String name = (String) args[0];
         String description = (String) args[1];
 
-        Project updatedProject = new Project(name, description);
-        updatedProject.setId(projectId);
-        return this.updateCore(updatedProject);
+        Role role = new Role(name, description);
+        role.setId(roleId);
+
+        return this.updateCore(role);
     }
 
     @Override
     public boolean update() {
-        return this.updateCore(this.project);
+        return this.updateCore(this.role);
     }
 
     @Override
@@ -153,3 +155,5 @@ public class ProjectController implements ControllerInterface<Project> {
         return controller.delete(id);
     }
 }
+
+

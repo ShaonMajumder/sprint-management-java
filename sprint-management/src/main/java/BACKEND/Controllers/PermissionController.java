@@ -4,111 +4,65 @@ import BACKEND.Models.Permission;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
+import java.sql.Timestamp;
 import java.util.List;
 
-public class PermissionController {
+public class PermissionController implements ControllerInterface<Permission> {
 
     private final SessionFactory sessionFactory;
+    private final ControllerHelper controller;
+
     private Permission permission;
 
-    /**
-     * Constructor for PermissionController.
-     * 
-     * @param sessionFactory The Hibernate SessionFactory used to create sessions.
-     */
     public PermissionController(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-
+        this.controller = new ControllerHelper(sessionFactory);
+        this.controller.setModelName("Permission");
     }
 
-    /**
-     * Gets the currently selected Permission.
-     * 
-     * @return The currently selected Permission.
-     */
-    public Permission getPermission() {
+    @Override
+    public Permission getModel() {
         return permission;
     }
 
-    /**
-     * Sets the currently selected Permission.
-     * 
-     * @param permission The Permission to set as the currently selected Permission.
-     */
-    public void setPermission(Permission permission) {
+    @Override
+    public void setModel(Permission permission) {
         this.permission = permission;
     }
 
-    /**
-     * Retrieves all Permissions from the database.
-     * 
-     * @return A List of all Permissions in the database.
-     */
-    public List<Permission> getAllPermissions() {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        List<Permission> permissions = null;
-
-        try {
-            transaction = session.beginTransaction();
-            permissions = session.createQuery("from Permission").list();
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-
-        return permissions;
+    @Override
+    public List<Permission> getAllModels() {
+        return controller.getAllModels();
     }
 
-    /**
-     * Retrieves a Permission by its ID.
-     * 
-     * @param id The ID of the Permission to retrieve.
-     * @return The Permission with the specified ID, or null if no such Permission
-     *         exists.
-     */
-    public Permission getById(int id) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        Permission permission = null;
-
-        try {
-            transaction = session.beginTransaction();
-            permission = session.get(Permission.class, id);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-
-        return permission;
+    @Override
+    public Permission getById(int id) throws ClassNotFoundException {
+        return (Permission) controller.getById(id);
     }
 
-    /**
-     * Creates a new permission with the specified name and description.
-     *
-     * @param name        The name of the permission.
-     * @param description The description of the permission.
-     * @return The ID of the newly created permission.
-     */
-    public int create(String name, String description) {
+    @Override
+    public int create(Object... args) {
+        if (args.length < 2) {
+            System.out.println("Insufficient arguments provided");
+            return -1;
+        }
+
+        String name = (String) args[0];
+        String description = (String) args[1];
+        Timestamp createdAt = new Timestamp(System.currentTimeMillis());
+
+        Permission permission = new Permission(name, description);
+        permission.setCreatedAt(createdAt);
+
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
         int permissionId = 0;
 
         try {
             transaction = session.beginTransaction();
-            Permission permission = new Permission(name, description);
-            permissionId = (int) session.save(permission);
+            session.persist(permission);
+            permissionId = permission.getId();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -122,12 +76,7 @@ public class PermissionController {
         return permissionId;
     }
 
-    /**
-     * Creates a new permission with the specified name and description.
-     *
-     * @param permission The permission to create.
-     * @return The ID of the newly created permission.
-     */
+    @Override
     public int create(Permission permission) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
@@ -135,7 +84,8 @@ public class PermissionController {
 
         try {
             transaction = session.beginTransaction();
-            permissionId = (int) session.save(permission);
+            session.persist(permission);
+            permissionId = permission.getId();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -149,15 +99,10 @@ public class PermissionController {
         return permissionId;
     }
 
-//    @Override
-    public boolean updateCore(Object permission) {
-        if (permission instanceof Permission) {
-            System.out.println("obj is not an instance of Permission");
-            return false;
-        }
-
+    @Override
+    public boolean updateCore(Permission permission) {
         if (permission == null) {
-            System.out.println("No project selected");
+            System.out.println("No permission selected");
             return false;
         }
 
@@ -167,7 +112,7 @@ public class PermissionController {
 
         try {
             transaction = session.beginTransaction();
-            session.update(permission);
+            session.merge(permission);
             transaction.commit();
             updated = true;
         } catch (Exception e) {
@@ -182,110 +127,34 @@ public class PermissionController {
         return updated;
     }
 
+    @Override
     public boolean updateByNewModel(Permission updatedPermission) {
         return this.updateCore(updatedPermission);
     }
 
-    public boolean updateByNewData(int permissionId, String newPermissionName, String newDescription) {
-        Permission updatedPermission = new Permission(newPermissionName, newDescription);
-        updatedPermission.setId(permissionId);
-        return this.updateCore(updatedPermission);
+    @Override
+    public boolean updateByNewData(int permissionId, Object... args) {
+        if (args.length < 2) {
+            System.out.println("Insufficient arguments provided");
+            return false;
+        }
+
+        String name = (String) args[0];
+        String description = (String) args[1];
+
+        Permission permission = new Permission(name, description);
+        permission.setId(permissionId);
+
+        return this.updateCore(permission);
     }
 
+    @Override
     public boolean update() {
         return this.updateCore(this.permission);
     }
 
-    /**
-     * Deletes a permission by its ID.
-     *
-     * @param id The ID of the permission to delete.
-     * @return true if the permission was deleted successfully, false otherwise.
-     */
-    public boolean delete(int id) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        boolean deleted = false;
-
-        try {
-            transaction = session.beginTransaction();
-            Permission permission = session.get(Permission.class, id);
-            if (permission != null) {
-                session.delete(permission);
-                transaction.commit();
-                deleted = true;
-            } else {
-                System.out.println("Permission with id " + id + " not found");
-            }
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-
-        return deleted;
+    @Override
+    public boolean delete(int id) throws ClassNotFoundException {
+        return controller.delete(id);
     }
-
-    /**
-     * Deletes a permission.
-     *
-     * @param permission The permission to delete.
-     * @return true if the permission was deleted successfully, false otherwise.
-     */
-    public boolean delete(Permission permission) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        boolean deleted = false;
-
-        try {
-            transaction = session.beginTransaction();
-            session.delete(permission);
-            transaction.commit();
-            deleted = true;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-
-        return deleted;
-    }
-
-    /**
-     * 
-     * Deletes the currently selected permission.
-     * 
-     * @return true if the permission was successfully deleted, false otherwise
-     */
-    public boolean delete() {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        boolean deleted = false;
-
-        try {
-            transaction = session.beginTransaction();
-            Permission permission = session.get(Permission.class, this.permission.getId());
-            if (permission != null) {
-                session.delete(permission);
-                transaction.commit();
-                deleted = true;
-            }
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-
-        return deleted;
-    }
-
 }
