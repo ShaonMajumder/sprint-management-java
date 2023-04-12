@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import java.util.List;
 
-public class TaskController implements ControllerInterface{
+public class TaskController {
 
     private final SessionFactory sessionFactory;
     private Task task;
@@ -149,7 +149,7 @@ public class TaskController implements ControllerInterface{
         return taskId;
     }
 
-    @Override
+//    @Override
     public boolean updateCore(Object task) {
         if (task instanceof Task) {
             System.out.println("obj is not an instance of Task");

@@ -1,47 +1,38 @@
 package BACKEND.Controllers;
 
-import BACKEND.Models.User;
+import BACKEND.Models.Sprint;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
+import java.sql.Date;
 import java.util.List;
 
-public class UserController implements ControllerInterface{
+public class SprintController {
 
     private final SessionFactory sessionFactory;
-    private ControllerHelper controller;
+    private Sprint sprint;
 
-    private User user;
-
-    public UserController(SessionFactory sessionFactory) {
+    public SprintController(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        this.controller = new ControllerHelper(sessionFactory);
-        this.controller.setModelName("User");
     }
 
-    @Override
-    public User getModel() {
-        return user;
+    public Sprint getModel() {
+        return sprint;
     }
 
-    @Override
-    public void setModel(Object user) {
-        this.user = (User) user;
+    public void setSprint(Sprint sprint) {
+        this.sprint = sprint;
     }
 
-    @Override
-    public List<User> getAllModels() {
-        return controller.getAllModels();
-    }
-
-    public User getById(int id) {
+    public List<Sprint> getAllModels() {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
-        User user = null;
+        List<Sprint> sprints = null;
 
         try {
             transaction = session.beginTransaction();
-            user = session.get(User.class, id);
+            sprints = session.createQuery("from Sprint").list();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -52,18 +43,17 @@ public class UserController implements ControllerInterface{
             session.close();
         }
 
-        return user;
+        return sprints;
     }
 
-    public int create(String username, String password, String email, String firstName, String lastName) {
+    public Sprint getById(int id) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
-        int userId = 0;
+        Sprint sprint = null;
 
         try {
             transaction = session.beginTransaction();
-            User user = new User(username, password, email, firstName, lastName);
-            userId = (int) session.save(user);
+            sprint = session.get(Sprint.class, id);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -74,17 +64,18 @@ public class UserController implements ControllerInterface{
             session.close();
         }
 
-        return userId;
+        return sprint;
     }
 
-    public int create(User user) {
+    public int create(String name, String description, Date startDate, Date endDate) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
-        int userId = 0;
+        int sprintId = 0;
 
         try {
             transaction = session.beginTransaction();
-            userId = (int) session.save(user);
+            Sprint sprint = new Sprint(name, description, startDate, endDate);
+            sprintId = (int) session.save(sprint);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -95,18 +86,39 @@ public class UserController implements ControllerInterface{
             session.close();
         }
 
-        return userId;
+        return sprintId;
     }
 
-    @Override
-    public boolean updateCore(Object user) {
-        if (user instanceof User) {
-            System.out.println("obj is not an instance of User");
+    public int create(Sprint sprint) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        int sprintId = 0;
+
+        try {
+            transaction = session.beginTransaction();
+            sprintId = (int) session.save(sprint);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return sprintId;
+    }
+
+//    @Override
+    public boolean updateCore(Object sprint) {
+        if (sprint instanceof Sprint) {
+            System.out.println("obj is not an instance of Sprint");
             return false;
         }
 
-        if (user == null) {
-            System.out.println("No user selected");
+        if (sprint == null) {
+            System.out.println("No sprint selected");
             return false;
         }
 
@@ -116,7 +128,7 @@ public class UserController implements ControllerInterface{
 
         try {
             transaction = session.beginTransaction();
-            session.update(user);
+            session.update(sprint);
             transaction.commit();
             updated = true;
         } catch (Exception e) {
@@ -131,18 +143,18 @@ public class UserController implements ControllerInterface{
         return updated;
     }
 
-    public boolean updateByNewModel(User updatedUser) {
-        return this.updateCore(updatedUser);
+    public boolean updateByNewModel(Sprint updatedSprint) {
+        return this.updateCore(updatedSprint);
     }
 
-    public boolean updateByNewData(int userId, String newUsername, String newPassword, String newEmail, String newFirstName, String newLastName) {
-        User updatedUser = new User(newUsername, newPassword, newEmail, newFirstName, newLastName);
-        updatedUser.setId(userId);
-        return this.updateCore(updatedUser);
+    public boolean updateByNewData(int sprintId, String newName, String newDescription, Date newStartDate, Date newEndDate) {
+        Sprint updatedSprint = new Sprint(newName, newDescription, newStartDate, newEndDate);
+        updatedSprint.setId(sprintId);
+        return this.updateCore(updatedSprint);
     }
 
     public boolean update() {
-        return this.updateCore(this.user);
+        return this.updateCore(this.sprint);
     }
 
 }

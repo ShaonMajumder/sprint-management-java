@@ -8,7 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import java.util.List;
 
-public class ProjectController implements ControllerInterface {
+public class ProjectController {
 
     private final SessionFactory sessionFactory;
     private Project project;
@@ -150,7 +150,7 @@ public class ProjectController implements ControllerInterface {
         return projectId;
     }
 
-    @Override
+//    @Override
     public boolean updateCore(Object project) {
         if (project instanceof Project) {
             System.out.println("obj is not an instance of Project");

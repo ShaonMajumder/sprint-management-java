@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import java.util.List;
 
-public class PermissionController implements ControllerInterface {
+public class PermissionController {
 
     private final SessionFactory sessionFactory;
     private Permission permission;
@@ -149,7 +149,7 @@ public class PermissionController implements ControllerInterface {
         return permissionId;
     }
 
-    @Override
+//    @Override
     public boolean updateCore(Object permission) {
         if (permission instanceof Permission) {
             System.out.println("obj is not an instance of Permission");

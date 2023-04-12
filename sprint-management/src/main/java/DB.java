@@ -10,7 +10,7 @@ public class DB {
 
         try {
             // Load the JDBC driver
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver"); //com.mysql.jdbc.Driver
 
             // Establish a connection
             Connection connection = DriverManager.getConnection(jdbcUrl, username, password);

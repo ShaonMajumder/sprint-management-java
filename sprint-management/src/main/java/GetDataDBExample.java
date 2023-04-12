@@ -1,11 +1,12 @@
 import java.util.List;
 
-import BACKEND.Controllers.TaskController;
-import BACKEND.Seeders.ProjectSeeder;
+//import BACKEND.Controllers.TaskController;
+import BACKEND.Controllers.UserController;
+//import BACKEND.Seeders.ProjectSeeder;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import BACKEND.Models.Task;
+//import BACKEND.Models.Task;
 
 public class GetDataDBExample {
 
@@ -15,12 +16,10 @@ public class GetDataDBExample {
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         // .buildSessionFactory();
 
-        // create an instance of the TaskController
-        TaskController taskController = new TaskController(sessionFactory);
-        ProjectSeeder projectSeeder = new ProjectSeeder(sessionFactory);
 
-        projectSeeder.seed();
+        UserController users = new UserController(sessionFactory);
 
+        System.out.println( users.getAllModels() );
 
         // close session factory
         sessionFactory.close();
