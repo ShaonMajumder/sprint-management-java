@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="3" failures="0" name="TaskControllerTest" time="0.056" errors="0" skipped="0">
+<testsuite tests="3" failures="0" name="UserControllerTest" time="0.338" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2023.1"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
@@ -62,7 +62,7 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.stdout.encoding" value="UTF-8"/>
   </properties>
-  <testcase classname="TaskControllerTest" name="testUpdateTask" time="0.034"/>
-  <testcase classname="TaskControllerTest" name="testCreateTask" time="0.008"/>
-  <testcase classname="TaskControllerTest" name="testDeleteTask" time="0.014"/>
+  <testcase classname="UserControllerTest" name="testUpdateUser" time="0.073"/>
+  <testcase classname="UserControllerTest" name="testCreateUser" time="0.191"/>
+  <testcase classname="UserControllerTest" name="testDeleteUser" time="0.074"/>
 </testsuite>

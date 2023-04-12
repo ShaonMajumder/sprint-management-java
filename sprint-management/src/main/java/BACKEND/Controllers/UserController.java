@@ -15,6 +15,8 @@ public class UserController implements ControllerInterface<User>{
 
     private User user;
 
+    private String salt = "";
+
     public UserController(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
         this.controller = new ControllerHelper(sessionFactory);
@@ -61,7 +63,13 @@ public class UserController implements ControllerInterface<User>{
         try {
             transaction = session.beginTransaction();
             User user = new User(username, password, email, firstName, lastName);
-            user.setPassword( BCrypt.hashpw( user.getPassword(), BCrypt.gensalt()) );
+            String salt = "";
+            if(this.salt != ""){
+                salt = this.salt;
+            }else{
+                salt = BCrypt.gensalt();
+            }
+            user.setPassword( BCrypt.hashpw( user.getPassword(), salt) );
             userId = (int) session.save(user);
             transaction.commit();
         } catch (Exception e) {
@@ -84,7 +92,8 @@ public class UserController implements ControllerInterface<User>{
 
         try {
             transaction = session.beginTransaction();
-            user.setPassword( BCrypt.hashpw( user.getPassword(), BCrypt.gensalt()) );
+            String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+            user.setPassword( hashedPassword );
             userId = (int) session.save(user);
             transaction.commit();
         } catch (Exception e) {
@@ -97,6 +106,10 @@ public class UserController implements ControllerInterface<User>{
         }
 
         return userId;
+    }
+
+    public void setSalt(String salt){
+        this.salt = salt;
     }
 
     @Override
