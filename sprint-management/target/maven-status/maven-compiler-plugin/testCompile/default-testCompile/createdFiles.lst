@@ -1,2 +1,6 @@
 TaskControllerTest.class
+ProjectControllerTest.class
+RoleControllerTest.class
+SprintControllerTest.class
+PermissionControllerTest.class
 UserControllerTest.class
