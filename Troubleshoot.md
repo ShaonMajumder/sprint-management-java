@@ -25,8 +25,8 @@
         - git config credential.username "ShaonMajumder"
         - git config user.email "smazoomder@gmail.com"
         - git config credential.helper store
-        - git config --global -e
-        - git config --global credential.useHttpPath true
+        - git config -e
+        - git config credential.useHttpPath true
         - git push origin master
 
 -  error: update_ref failed for ref 'refs/remotes/origin/master': cannot update the ref 'refs/remotes/origin/master': unable to append to '.git/logs/refs/remotes/origin/master': Permission denied. Everything up-to-date
