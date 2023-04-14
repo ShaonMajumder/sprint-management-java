@@ -6,15 +6,12 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "users")
-@NamedQuery(
-        name = "findUserByEmail",
-        query = "SELECT u FROM User u WHERE u.email = :email"
-)
+@NamedQuery(name = "findUserByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", updatable = false)
     private int id;
 
     @Column(name = "username", nullable = false)
