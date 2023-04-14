@@ -1,9 +1,6 @@
-import static org.junit.Assert.*;
-
-import java.sql.Date;
-import java.util.List;
-
-import BACKEND.Models.Sprint;
+import backend.controllers.RoleController;
+import backend.models.Role;
+import backend.seeders.RoleSeeder;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.AfterClass;
@@ -12,9 +9,9 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import BACKEND.Controllers.RoleController;
-import BACKEND.Models.Role;
-import BACKEND.Seeders.RoleSeeder;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RoleControllerTest {

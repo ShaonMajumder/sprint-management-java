@@ -1,23 +1,19 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.List;
-
+import backend.controllers.ProjectController;
+import backend.models.Project;
+import backend.seeders.ProjectSeeder;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
-
-import BACKEND.Controllers.ProjectController;
-import BACKEND.Models.Project;
-import BACKEND.Seeders.ProjectSeeder;
 import org.junit.runners.MethodSorters;
+
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProjectControllerTest {

@@ -1,7 +1,7 @@
-import BACKEND.Controllers.AuthController;
-import BACKEND.Controllers.UserController;
-import BACKEND.Models.User;
-import BACKEND.Seeders.UserSeeder;
+import backend.controllers.AuthController;
+import backend.controllers.UserController;
+import backend.models.User;
+import backend.seeders.UserSeeder;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.AfterClass;
@@ -9,11 +9,16 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import static org.junit.Assert.*;
 
 public class UserControllerTest {
+    private static final Logger logger = Logger.getLogger(UserControllerTest.class.getName());
 
     private static UserController userController;
     private static SessionFactory sessionFactory;
@@ -21,13 +26,16 @@ public class UserControllerTest {
 
     @BeforeClass
     public static void setup() {
+        InputStream inputStream = UserControllerTest.class.getClassLoader().getResourceAsStream("logging.properties");
+        try {
+            LogManager.getLogManager().readConfiguration(inputStream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
         sessionFactory = configuration.buildSessionFactory();
-
         userSeeder = new UserSeeder(sessionFactory);
-        userSeeder.truncate();
-        userSeeder.seed();
-
         userController = new UserController(sessionFactory);
         String salt = BCrypt.gensalt();
         userController.setSalt(salt);
@@ -41,7 +49,9 @@ public class UserControllerTest {
     @Test
     public void testCreateUser() throws ClassNotFoundException {
         int userId = userController.create(new User("Created tester", "12345678", "testuser@test.com", "Test", "User"));
+        logger.info("created user " + userId);
         User user = userController.getById(userId);
+        logger.info("created user " + user);
 
         assertEquals("Created tester", user.getUsername());
         assertTrue(BCrypt.checkpw("12345678", user.getPassword()));

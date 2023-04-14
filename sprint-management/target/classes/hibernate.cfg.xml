@@ -20,13 +20,12 @@
         <property name="hbm2ddl.auto">update</property>
 
         <!-- Mapping files -->
-        <mapping class="BACKEND.Models.Project"/>
-        <mapping class="BACKEND.Models.Sprint"/>
-        <mapping class="BACKEND.Models.Task"/>
-        <mapping class="BACKEND.Models.User"/>
-        <mapping class="BACKEND.Models.Role"/>
-        <mapping class="BACKEND.Models.Permission"/>
-
+        <mapping class="backend.models.Project"/>
+        <mapping class="backend.models.Sprint"/>
+        <mapping class="backend.models.Task"/>
+        <mapping class="backend.models.User"/>
+        <mapping class="backend.models.Role"/>
+        <mapping class="backend.models.Permission"/>
 
 
     </session-factory>

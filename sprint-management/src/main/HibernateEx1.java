@@ -1,13 +1,12 @@
-import java.util.List;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import BACKEND.Models.Project;
-import UI.LoginWindow;
 import UI.Home;
+import UI.LoginWindow;
 import UI.ProjectCreate;
 import UI.ProjectList;
+import backend.models.Project;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import java.util.List;
 
 public class HibernateEx1 {
 

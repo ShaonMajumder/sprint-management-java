@@ -1,23 +1,18 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import backend.controllers.SprintController;
+import backend.models.Sprint;
+import backend.seeders.SprintSeeder;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-
-import BACKEND.Controllers.SprintController;
-import BACKEND.Models.Sprint;
-import BACKEND.Seeders.SprintSeeder;
-import org.junit.runners.MethodSorters;
+import static org.junit.Assert.*;
 
 public class SprintControllerTest {
 

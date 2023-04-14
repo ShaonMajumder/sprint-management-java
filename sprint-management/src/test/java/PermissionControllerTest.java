@@ -1,11 +1,7 @@
-import BACKEND.Controllers.PermissionController;
-import BACKEND.Models.Permission;
-import BACKEND.Models.Sprint;
-import BACKEND.Seeders.PermissionSeeder;
-import BACKEND.Seeders.ProjectSeeder;
-import org.hibernate.Session;
+import backend.controllers.PermissionController;
+import backend.models.Permission;
+import backend.seeders.PermissionSeeder;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

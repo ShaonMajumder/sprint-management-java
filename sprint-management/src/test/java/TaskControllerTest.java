@@ -1,6 +1,6 @@
-import BACKEND.Controllers.TaskController;
-import BACKEND.Models.Task;
-import BACKEND.Seeders.TaskSeeder;
+import backend.controllers.TaskController;
+import backend.models.Task;
+import backend.seeders.TaskSeeder;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.AfterClass;

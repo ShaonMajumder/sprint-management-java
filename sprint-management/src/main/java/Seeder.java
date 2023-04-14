@@ -1,13 +1,4 @@
-import BACKEND.Controllers.AuthController;
-import BACKEND.Controllers.TaskController;
-import BACKEND.Models.User;
-import BACKEND.Seeders.ProjectSeeder;
-import BACKEND.Seeders.SprintSeeder;
-import BACKEND.Seeders.RoleSeeder;
-import BACKEND.Seeders.TaskSeeder;
-import BACKEND.Seeders.PermissionSeeder;
-
-import BACKEND.Seeders.UserSeeder;
+import backend.seeders.TaskSeeder;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
