@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-04-14T11:04:39.399900548Z</date>
+  <millis>1681470279399</millis>
+  <nanos>900548</nanos>
+  <sequence>3</sequence>
+  <logger>org.apache.coyote.http11.Http11NioProtocol</logger>
+  <level>INFO</level>
+  <class>org.apache.coyote.AbstractProtocol</class>
+  <method>start</method>
+  <thread>1</thread>
+  <message>Starting ProtocolHandler ["http-nio-8002"]</message>
+</record>
+<record>
+  <date>2023-04-14T11:04:52.143313172Z</date>
+  <millis>1681470292143</millis>
+  <nanos>313172</nanos>
+  <sequence>4</sequence>
+  <logger>org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]</logger>
+  <level>INFO</level>
+  <class>org.apache.catalina.core.ApplicationContext</class>
+  <method>log</method>
+  <thread>44</thread>
+  <message>Initializing Spring DispatcherServlet 'dispatcherServlet'</message>
+</record>
+<record>
+  <date>2023-04-14T11:05:03.159763965Z</date>
+  <millis>1681470303159</millis>
+  <nanos>763965</nanos>
+  <sequence>5</sequence>
+  <logger>backend.controllers.ApiController</logger>
+  <level>INFO</level>
+  <class>backend.controllers.ApiController</class>
+  <method>updateUser</method>
+  <thread>47</thread>
+  <message>user passed User{id=0, username='null', password='null', email='delete@asdad.asd', firstName='null', lastName='null', createdAt=null, updatedAt=null, deletedAt=null}</message>
+</record>
+<record>
+  <date>2023-04-14T11:05:03.160540385Z</date>
+  <millis>1681470303160</millis>
+  <nanos>540385</nanos>
+  <sequence>6</sequence>
+  <logger>backend.controllers.ApiController</logger>
+  <level>INFO</level>
+  <class>backend.controllers.ApiController</class>
+  <method>updateUser</method>
+  <thread>47</thread>
+  <message>field id is not updatable</message>
+</record>
+<record>
+  <date>2023-04-14T11:05:03.160689695Z</date>
+  <millis>1681470303160</millis>
+  <nanos>689695</nanos>
+  <sequence>7</sequence>
+  <logger>backend.controllers.ApiController</logger>
+  <level>INFO</level>
+  <class>backend.controllers.ApiController</class>
+  <method>updateUser</method>
+  <thread>47</thread>
+  <message>update field founddelete@asdad.asd</message>
+</record>
+</log>
