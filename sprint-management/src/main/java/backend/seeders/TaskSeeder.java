@@ -29,7 +29,7 @@ public class TaskSeeder implements SeederInterface {
     public void seed() {
         TaskController taskController = new TaskController(sessionFactory);
         List<Task> tasks = new ArrayList<>();
-        tasks.add(new Task("Task 1", "This is task 1", 5, 2.5));
+        tasks.add(new Task("Task 1", "This is task 11", 5, 2.5));
         tasks.add(new Task("Task 2", "This is task 2", 10, 5.0));
         tasks.add(new Task("Task 3", "This is task 3", 8, 4.0));
 

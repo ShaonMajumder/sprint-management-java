@@ -3,6 +3,8 @@ package backend.models;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "projects")
@@ -27,6 +29,14 @@ public class Project<factory> {
 
     @Column(name = "deleted_at")
     private Timestamp deletedAt;
+
+    @OneToMany(targetEntity = Sprint.class, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "project_id",referencedColumnName="id")
+    private List<Sprint> sprints = new ArrayList<>();
+    
+//@OneToMany(mappedBy = "project_id", fetch = FetchType.EAGER)
+//private List<Sprint> sprints = new ArrayList<>();
+
 
     // Constructors
     public Project() {
@@ -86,6 +96,14 @@ public class Project<factory> {
 
     public void setDeletedAt(Timestamp deletedAt) {
         this.deletedAt = deletedAt;
+    }
+
+    public List getSprints() {
+        return sprints;
+    }
+
+    public void setSprints(List sprints) {
+        this.sprints = sprints;
     }
 
     @Override

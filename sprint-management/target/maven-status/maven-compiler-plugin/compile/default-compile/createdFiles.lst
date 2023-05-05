@@ -16,6 +16,7 @@ backend/controllers/SprintController.class
 backend/seeders/SeederInterface.class
 backend/seeders/ProjectSeeder.class
 UI/ProjectCreate.class
+JoinExample.class
 backend/controllers/ProjectController.class
 backend/models/User.class
 backend/controllers/RoleController.class
@@ -24,6 +25,7 @@ UI/ProjectList.class
 backend/exception/ResourceNotFoundException.class
 backend/models/Permission.class
 backend/SpringBootRestApplication.class
+backend/controllers/ApiController$CorsFilter.class
 UI/Home.class
 backend/models/Task.class
 backend/seeders/SprintSeeder.class

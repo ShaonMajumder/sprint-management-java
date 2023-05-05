@@ -1,9 +1,12 @@
 package backend.controllers;
 
 import backend.models.Project;
+import backend.models.Sprint;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -142,6 +145,58 @@ public class ProjectController implements ControllerInterface<Project> {
         updatedProject.setId(projectId);
         return this.updateCore(updatedProject);
     }
+
+//    public List<Sprint> getSprintsById(int id) {
+//        Session session = sessionFactory.openSession();
+//        Transaction transaction = null;
+//        List<Sprint> sprints = null;
+//
+//        try {
+//            transaction = session.beginTransaction();
+//            Project project = session.get(Project.class, id);
+//            sprints = project.getSprints();
+//            transaction.commit();
+//        } catch (Exception e) {
+//            if (transaction != null) {
+//                transaction.rollback();
+//            }
+//            e.printStackTrace();
+//        } finally {
+//            session.close();
+//        }
+//
+//        return sprints;
+//    }
+
+    public List<Object[]> getByIdSprint(int id) throws ClassNotFoundException {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        List<Object[]> projects = null;
+
+        try {
+            transaction = session.beginTransaction();
+            Query<Object[]> query = session.createQuery("FROM Project p LEFT JOIN p.sprints s WHERE s.project_id = :id", Object[].class);
+            query.setParameter("id", id);
+
+            projects = query.list();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return projects;
+    }
+
+
+
+
+
+
 
     @Override
     public boolean update() {

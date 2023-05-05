@@ -1,5 +1,6 @@
 package backend.models;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -8,31 +9,35 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "sprints")
 public class Sprint {
-
+@OrderColumn
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", columnDefinition = "INT UNSIGNED NOT NULL AUTO_INCREMENT")
     private int id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "project_id", columnDefinition = "INT UNSIGNED DEFAULT NULL")
+    private Integer projectId;
+
+    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(255) NOT NULL")
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "start_date", nullable = false)
+    @Column(name = "start_date", nullable = false, columnDefinition = "DATE NOT NULL")
     private Date startDate;
 
-    @Column(name = "end_date", nullable = false)
+//    @Column(name = "end_date", nullable = false)
+    @Column(name = "end_date", nullable = false, columnDefinition = "DATE NOT NULL")
     private Date endDate;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
     private Timestamp updatedAt;
 
-    @Column(name = "deleted_at")
+    @Column(name = "deleted_at", columnDefinition = "TIMESTAMP")
     private Timestamp deletedAt;
 
     // Constructors
@@ -46,6 +51,10 @@ public class Sprint {
         this.startDate = startDate;
         this.endDate = endDate;
         this.createdAt = new Timestamp(System.currentTimeMillis());
+
+
+        System.out.println("constructor idd");
+//        this.projectId = null;
     }
 
     // Getters and Setters

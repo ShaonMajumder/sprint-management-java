@@ -20,6 +20,7 @@ public class GetDataDBExample {
         UserController users = new UserController(sessionFactory);
         User user = userController.getById(93);
         System.out.println(user);
+
         // System.out.println( users.getAllModels() );
         // User resultUser = users.getById(12);
         // System.out.println(resultUser);

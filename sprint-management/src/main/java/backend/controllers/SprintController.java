@@ -60,6 +60,7 @@ public class SprintController implements ControllerInterface<Sprint> {
         try {
             transaction = session.beginTransaction();
             Sprint sprint = new Sprint(name, description, startDate, endDate);
+            System.out.println("sprint is ="+sprint);
             session.persist(sprint);
             sprintId = sprint.getId();
             transaction.commit();
@@ -105,6 +106,8 @@ public class SprintController implements ControllerInterface<Sprint> {
             return false;
         }
 
+        System.out.println("here is ="+sprint);
+
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
         boolean updated = false;
@@ -144,6 +147,7 @@ public class SprintController implements ControllerInterface<Sprint> {
         Date endDate = (Date) args[3];
 
         Sprint updatedSprint = new Sprint(name, description, startDate, endDate);
+
         updatedSprint.setId(sprintId);
         return this.updateCore(updatedSprint);
     }

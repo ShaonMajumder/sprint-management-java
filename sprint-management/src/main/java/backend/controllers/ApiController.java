@@ -17,6 +17,7 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/users")
 public class ApiController {
 
