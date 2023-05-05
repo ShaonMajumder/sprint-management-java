@@ -35,7 +35,8 @@
 							console.log(user.id);
 							console.log(user.username);
 							console.log(user.email);
-							$('#userTable tbody').append('<tr><td>' + user.id + '</td><td>' + user.username + '</td><td>' + user.password + '</td><td>' + user.firstName + '</td><td>' + user.lastName + '</td><td>' + user.email + '</td></tr>');
+							// $('#userTable tbody').append('<tr><td>' + user.id + '</td><td>' + user.username + '</td><td>' + user.password + '</td><td>' + user.firstName + '</td><td>' + user.lastName + '</td><td>' + user.email + '</td></tr>');
+							$('#userTable tbody').append('<tr><td>' + user.id + '</td><td>' + user.username + '</td><td>' + user.password + '</td><td>' + user.firstName + '</td><td>' + user.lastName + '</td><td>' + user.email + '</td><td><button class="deleteBtn" data-id="' + user.id + '">Delete</button></td></tr>');
 						// etc.
 						});
 					},
@@ -72,6 +73,22 @@
 					}
 				});
 			});
+
+			$(document).on('click', '.deleteBtn', function() {
+				var id = $(this).data('id');
+				$.ajax({
+					url: 'http://localhost:8002/api/users/' + id,
+					type: 'DELETE',
+					success: function() {
+						alert('User deleted successfully');
+						// reload the table data
+						$("#getAllBtn").click();
+					},
+					error: function(xhr, status, error) {
+						console.error(xhr.responseText);
+					}
+				});
+			});
 		});
 	</script>
 </head>
@@ -91,13 +108,14 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
+					<th>Actions</th>
                 </tr>
             </thead>
             <tbody>
             </tbody>
         </table>
 
-
+		<hr>
 		<h2>Create User</h2>
 		<form id="createUserForm" method="POST" action="/api/users">
 			<div class="row">
