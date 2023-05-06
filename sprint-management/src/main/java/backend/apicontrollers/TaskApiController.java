@@ -1,10 +1,13 @@
-package backend.controllers;
+package backend.apicontrollers;
 
+import backend.controllers.ProjectController;
+import backend.controllers.TaskController;
+import backend.controllers.UserController;
 import backend.exception.ResourceNotFoundException;
+import backend.models.Project;
 import backend.models.User;
-import backend.repository.UserRepository;
+import backend.repository.ProjectRepository;
 import org.hibernate.SessionFactory;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,20 +21,22 @@ import java.util.logging.Logger;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/users")
-public class ApiController {
+@RequestMapping("/api/tasks")
+public class TaskApiController {
 
 	@Autowired
-	private UserRepository userRepository;
+	private ProjectRepository projectRepository;
 	private SessionFactory sessionFactory;
 	private UserController userController;
-	private static final Logger logger = Logger.getLogger(ApiController.class.getName());
+	private TaskController taskController;
 
-	public ApiController(SessionFactory sessionFactory) {
+	private static final Logger logger = Logger.getLogger(TaskApiController.class.getName());
+
+	public TaskApiController(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
-		this.userController = new UserController(sessionFactory);
+		this.projectController = new ProjectController(sessionFactory);
 
-		InputStream inputStream = ApiController.class.getClassLoader().getResourceAsStream("logging.properties");
+		InputStream inputStream = TaskApiController.class.getClassLoader().getResourceAsStream("logging.properties");
 		try {
 			LogManager.getLogManager().readConfiguration(inputStream);
 		} catch (IOException e) {
@@ -39,10 +44,10 @@ public class ApiController {
 		}
 	}
 
-	// get all users
+	// get all projects
 	@GetMapping
-	public List<User> getAllUsers() {
-		return this.userRepository.findAll();
+	public List<Project> getAllProjects() {
+		return this.projectRepository.findAll();
 	}
 
 	// get user by id
@@ -54,14 +59,14 @@ public class ApiController {
 		// userId));
 	}
 
-	// create user
+	// create Project
 	@PostMapping
-	public int createUser(@RequestBody User user) {
-		user.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-		user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
-		return this.userController.create(user);
+	public int createProject(@RequestBody Project project) {
+		project.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+		return this.projectController.create(project);
 		// return this.userRepository.save(user);
 	}
+
 
 	// update user
 	@PutMapping("/{id}")
@@ -100,12 +105,14 @@ public class ApiController {
 
 	// delete user by id
 	@DeleteMapping("/{id}")
-	public boolean deleteUser(@PathVariable("id") int userId) throws ClassNotFoundException { // ResponseEntity<User>
+	public boolean deleteUser(@PathVariable("id") int projectId) throws ClassNotFoundException { // ResponseEntity<User>
 		// User existingUser = this.userRepository.findById(userId)
 		// .orElseThrow(() -> new ResourceNotFoundException("User not found with id :" +
 		// userId));
 		// this.userRepository.delete(existingUser);
 		// return ResponseEntity.ok().build();
-		return this.userController.delete(userId);
+		return this.projectController.delete(projectId);
 	}
+
+
 }

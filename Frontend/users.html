@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sprint Management</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Font Awesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+	<script>
+		function getFormData($form){
+			var unindexed_array = $form.serializeArray();
+			var indexed_array = {};
+
+			$.map(unindexed_array, function(n, i){
+				indexed_array[n['name']] = n['value'];
+			});
+
+			return indexed_array;
+		}
+
+		$(document).ready(function(){
+			$("#getAllBtn").click(function(){
+                $.ajax({
+					url: 'http://localhost:8002/api/users',
+					type: 'GET',
+					dataType: 'json',
+					crossDomain: true,
+					xhrFields: {
+						withCredentials: false
+					},
+					success: function(data) {
+						$('#userTable tbody').html('');
+						// console.log(data);
+						$.each(data, function(index, user) {
+							$('#userTable tbody').append('<tr><td>' + user.id + '</td><td>' + user.username + '</td><td>' + user.password + '</td><td>' + user.firstName + '</td><td>' + user.lastName + '</td><td>' + user.email + '</td><td><button class="editBtn" data-id="' + user.id + '">Edit</button><button class="deleteBtn" data-id="' + user.id + '">Delete</button></td></tr>');
+						});
+					},
+					error: function(xhr, status, error) {
+						console.error(xhr.responseText);
+					}
+				});
+			});
+		
+			$('#createUserForm').submit(function(event) {
+				event.preventDefault();
+
+				var form = $(this);
+				var url = form.attr('action');
+				var data = JSON.stringify(getFormData(form));
+
+				$.ajax({
+					url: 'http://localhost:8002/api/users',
+					type: 'POST',
+					contentType: 'application/json',
+					data: data,
+					dataType: 'json',
+					crossDomain: true,
+					xhrFields: {
+						withCredentials: false
+					},
+					success: function(response) {
+						alert("User created successfully");
+						console.log(response);
+					},
+					error: function(xhr, textStatus, errorThrown) {
+						alert("Error creating user");
+						console.log(xhr.responseText);
+					}
+				});
+			});
+
+			$(document).on('click', '.deleteBtn', function() {
+				var id = $(this).data('id');
+				$.ajax({
+					url: 'http://localhost:8002/api/users/' + id,
+					type: 'DELETE',
+					success: function() {
+						alert('User deleted successfully');
+						// reload the table data
+						$("#getAllBtn").click();
+					},
+					error: function(xhr, status, error) {
+						console.error(xhr.responseText);
+					}
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Sprint Management</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+		  <ul class="navbar-nav">
+			<li class="nav-item active">
+			  <a class="nav-link" href="#">Home</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" href="projects.html">Projects</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" href="#">Sprints</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" href="#">Tasks</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" href="users.html">Users</a>
+			</li>
+	
+	
+			
+	
+	
+		  </ul>
+		  <ul class="navbar-nav ml-auto">
+			<li class="nav-item dropdown mr-auto">
+			  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				John Doe
+			  </a>
+			  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+				<a class="dropdown-item" href="#">Settings</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="#">Logout</a>
+			  </div>
+			</li>
+	
+	
+		  </ul>
+		</div>
+	  </nav>
+
+	<div class="container">
+		<h1>Sprint - Users Management</h1>
+        <hr>
+        <h2>Get All Users</h2>
+        <button id="getAllBtn" class="btn btn-primary">Get All Users</button>
+        <br><br>
+        <table id="userTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+					<th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+		<hr>
+		<h2>Create User</h2>
+		<form id="createUserForm" method="POST" action="/api/users">
+			<div class="row">
+				<div class="col-md-6">
+				<div class="form-group">
+					<label for="emailInput">Email</label>
+					<input type="email" class="form-control" id="emailInput" name="email" placeholder="Enter email" required>
+				</div>
+				
+				
+				<div class="form-group">
+					<label for="firstNameInput">First Name</label>
+					<input type="text" class="form-control" id="firstNameInput" name="firstName" placeholder="Enter first name" required>
+				</div>
+
+				<div class="form-group">
+					<label for="passwordInput">Password</label>
+					<input type="password" class="form-control" id="passwordInput" name="password" placeholder="Enter password" required>
+				</div>
+				
+				</div>
+				<div class="col-md-6">
+				
+				<div class="form-group">
+					<label for="usernameInput">Username</label>
+					<input type="text" class="form-control" id="usernameInput" name="username" placeholder="Enter username" required>
+				</div>
+				
+				<div class="form-group">
+					<label for="lastNameInput">Last Name</label>
+					<input type="text" class="form-control" id="lastNameInput" name="lastName" placeholder="Enter last name" required>
+				</div>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary">Create User</button>
+		</form>
+			  
+
+	</div>
+</body>
+</html>

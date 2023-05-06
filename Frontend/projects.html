@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sprint Management</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Font Awesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Sweet Alert -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+
+  <script>
+    function getFormData($form){
+        var unindexed_array = $form.serializeArray();
+        var indexed_array = {};
+
+        $.map(unindexed_array, function(n, i){
+            indexed_array[n['name']] = n['value'];
+        });
+
+        return indexed_array;
+    }
+
+    $(document).ready(function(){
+      $('#createProjectForm').submit(function(event) {
+          event.preventDefault();
+
+          var form = $(this);
+          var url = form.attr('action');
+          var data = JSON.stringify(getFormData(form));
+  
+          $.ajax({
+              url: 'http://localhost:8002/api/projects',
+              type: 'POST',
+              contentType: 'application/json',
+              data: data,
+              dataType: 'json',
+              crossDomain: true,
+              xhrFields: {
+                  withCredentials: false
+              },
+              success: function(response) {
+                Swal.fire({
+                  title: 'Success!',
+                  text: 'Project Created Successfully!',
+                  icon: 'success',
+                  confirmButtonText: 'Close'
+                })
+                
+                  console.log(response);
+                  $('#createProjectModal').modal('hide');
+                  $("#getAllBtn").click();
+              },
+              error: function(xhr, textStatus, errorThrown) {
+                  alert("Error creating project");
+                  console.log(xhr.responseText);
+              }
+          });
+      });
+  
+      $("#getAllBtn").click(function(){
+          $.ajax({
+              url: 'http://localhost:8002/api/projects',
+              type: 'GET',
+              dataType: 'json',
+              crossDomain: true,
+              xhrFields: {
+                  withCredentials: false
+              },
+              success: function(data) {
+                  $('#projectTable tbody').html('');
+                  console.log(data);
+                  $.each(data, function(index, user) {
+                      $('#projectTable tbody').append('<tr><td>' + user.id + '</td><td>' + user.name + '</td><td>' + user.description + '</td><td>' + user.createdAt + '</td><td>' + user.updatedAt + '</td><td><button class="editBtn" data-id="' + user.id + '">Edit</button><button class="deleteBtn" data-id="' + user.id + '">Delete</button></td></tr>');
+                  });
+              },
+              error: function(xhr, status, error) {
+                  console.error(xhr.responseText);
+              }
+          });
+      });
+
+      $(document).on('click', '.deleteBtn', function() {
+        var id = $(this).data('id');
+        $.ajax({
+          url: 'http://localhost:8002/api/projects/' + id,
+          type: 'DELETE',
+          success: function() {
+            Swal.fire(
+              'Deleted!',
+              'User deleted successfully !',
+              'success'
+            )
+            // reload the table data
+            $("#getAllBtn").click();
+          },
+          error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+          }
+        });
+      });
+      $("#getAllBtn").click();
+    });
+  </script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Sprint Management</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="projects.html">Projects</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Sprints</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Tasks</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="users.html">Users</a>
+        </li>
+
+
+		
+
+
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown mr-auto">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            John Doe
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Settings</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Logout</a>
+          </div>
+        </li>
+
+
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-3">
+    <h2>Projects</h2>
+    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createProjectModal">New Project <i class="fas fa-plus"></i> </a>
+    <br><br>
+    <button id="getAllBtn" class="btn btn-primary">Fetch</button>
+    <table class="table" id="projectTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Created At</th>
+          <th>Updated At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+
+    
+    <!-- Create Project Modal -->
+  <div class="modal fade" id="createProjectModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Create Project</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="createProjectForm" method="POST" action="/api/projects" >
+                <div class="form-group">
+                  <label for="name">Name:</label>
+                  <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                  <label for="description">Description:</label>
+                  <textarea class="form-control" id="description" name="description" rows="5"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</body>
+</html>

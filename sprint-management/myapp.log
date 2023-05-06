@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2023-05-05T21:05:41.113318432Z</date>
-  <millis>1683320741113</millis>
-  <nanos>318432</nanos>
+  <date>2023-05-06T14:07:57.159840293Z</date>
+  <millis>1683382077159</millis>
+  <nanos>840293</nanos>
   <sequence>3</sequence>
   <logger>org.apache.coyote.http11.Http11NioProtocol</logger>
   <level>INFO</level>
@@ -14,14 +14,14 @@
   <message>Starting ProtocolHandler ["http-nio-8002"]</message>
 </record>
 <record>
-  <date>2023-05-05T21:05:46.676070325Z</date>
-  <millis>1683320746676</millis>
-  <nanos>70325</nanos>
+  <date>2023-05-06T14:08:04.887352748Z</date>
+  <millis>1683382084887</millis>
+  <nanos>352748</nanos>
   <sequence>4</sequence>
   <logger>org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]</logger>
   <level>INFO</level>
   <class>org.apache.catalina.core.ApplicationContext</class>
   <method>log</method>
-  <thread>45</thread>
+  <thread>44</thread>
   <message>Initializing Spring DispatcherServlet 'dispatcherServlet'</message>
 </record>
